@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+// 🎨 Palette Tavern of Sparks
+$color-background:     #1D0E26; // Purple Night
+$color-accent:         #FFB43A; // Gold Spark
+$color-highlight:      #F25C2A; // Deep Ember
+$color-card:           #32243D; // Slate Card
+$color-text-primary:   #FFB43A; // même que accent
+$color-text-secondary: #C6B5D9; // Soft Lavender
+$color-notification:   #E84343; // Pixel Red
+$color-muted:          #8C7D99; // Mid Grey
+
+// Exemple d'usage :
+body {
+  background-color: $color-background;
+  color: $color-text-primary;
+}
+
+.card {
+  background-color: $color-card;
+  color: $color-text-secondary;
+}
+
+.button {
+  background-color: $color-accent;
+  &:hover {
+    background-color: $color-highlight;
+  }
+}
