@@ -1,11 +1,36 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  private _fb = inject(FormBuilder);
+  loginForm = this._fb.group({
+    email: this._fb.control('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: this._fb.control('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
+
+  onSubmit() {
+    if (!this.loginForm.valid) {
+      alert('FILL CORRECTLY MORON!');
+      console.log(this._fb.control(''));
+      return;
+    }
+
+    const loginData = this.loginForm.getRawValue();
+    console.log(loginData);
+  }
 
 }
