@@ -1,0 +1,78 @@
+<p>dev works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="devSubmit()">
+  <div>
+    <label for="username">Username:</label>
+    <input id="username" formControlName="username" type="text" required>
+    <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+         class="error">
+      Username required
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" required>
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+         class="error">
+      <span *ngIf="registerForm.get('email')?.hasError('required')">Email required</span>
+      <span *ngIf="registerForm.get('email')?.hasError('email')">Invalid email</span>
+    </div>
+  </div>
+
+  <div>
+    <label for="firstName">Firstname:</label>
+    <input id="firstName" formControlName="firstName" type="text" required>
+    <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+         class="error">
+      Firstname required
+    </div>
+  </div>
+
+  <div>
+    <label for="lastName">Lastname:</label>
+    <input id="lastName" formControlName="lastName" type="text" required>
+    <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+         class="error">
+      Lastname required
+    </div>
+  </div>
+
+  <div>
+    <label for="birthdate">Birthdate:</label>
+    <input id="birthdate" formControlName="birthdate" type="date" required>
+    <div *ngIf="registerForm.get('birthdate')?.invalid && registerForm.get('birthdate')?.touched"
+         class="error">
+      Date de naissance requise
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" required>
+    <div *ngIf="passwordControl?.invalid && passwordControl?.touched"
+         class="error">
+      <span *ngIf="passwordControl?.hasError('required')">Password required</span>
+      <span *ngIf="passwordControl?.hasError('passwordStrength')">
+        {{ passwordControl?.getError('passwordStrength')?.message }}
+      </span>
+    </div>
+    <div *ngIf="passwordControl?.value" class="password-strength-indicator">
+      <div class="strength-bar" [ngClass]="getPasswordStrength()"></div>
+      <small class="strength-text">{{ getPasswordStrength() }}</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="confirmPassword">Confirm password:</label>
+    <input id="confirmPassword" formControlName="confirmPassword" type="password" required>
+    <div *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched"
+         class="error">
+      You must confirm password
+    </div>
+    <div *ngIf="passwordMismatch" class="error">
+      Passwords don't match
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">Sign in</button>
+</form>

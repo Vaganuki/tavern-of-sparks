@@ -1,0 +1,93 @@
+form {
+  max-width: 400px;
+  margin: 0 auto;
+
+  div {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+
+      &.ng-invalid.ng-touched {
+        border-color: #dc3545;
+      }
+
+      &.ng-valid {
+        border-color: #28a745;
+      }
+    }
+  }
+
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+
+    &:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.password-strength-indicator {
+  margin-top: 8px;
+
+  .strength-bar {
+    height: 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    margin-bottom: 4px;
+
+    &.Weak {
+      background-color: #dc3545;
+      width: 25%;
+    }
+
+    &.Medium {
+      background-color: #ffc107;
+      width: 50%;
+    }
+
+    &.Strong {
+      background-color: #17a2b8;
+      width: 75%;
+    }
+
+    &.Very-strong {
+      background-color: #28a745;
+      width: 100%;
+    }
+  }
+
+  .strength-text {
+    font-size: 11px;
+    color: #6c757d;
+  }
+}
