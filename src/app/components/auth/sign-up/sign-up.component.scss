@@ -1,0 +1,22 @@
+.container{
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 25% 75%;
+
+  & .explaination{
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+    padding: 0.5rem 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100vh;
+
+    & .bottomContact{
+    }
+
+  }
+
+}

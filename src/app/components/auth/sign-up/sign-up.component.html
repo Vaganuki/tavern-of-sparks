@@ -1,1 +1,88 @@
-<p>sign-up works!</p>
+<div class="container">
+  <div class="explaination">
+    <h1>Tavern Of Sparks</h1>
+    <p>
+      <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quam repudiandae rerum sed similique. Aperiam officia officiis optio! A cupiditate eaque hic ipsum minima minus molestias neque quae ut vero?</span>
+      <span>Consectetur deserunt et, eveniet ipsum magnam obcaecati quod recusandae rem. Blanditiis earum maxime molestias obcaecati provident quasi sunt tempore. Consequatur corporis eum laudantium magni odio sapiente soluta tempora tempore vel.</span>
+      <span>Ab, ducimus voluptate. Aliquid aspernatur atque aut deserunt esse inventore ipsum officiis pariatur possimus quaerat quos, rem sunt, temporibus vel veniam. Architecto eaque et exercitationem fuga fugiat repudiandae vel, velit?</span>
+    </p>
+    <div class="bottomContact">
+      Contact us: <a href="mailto:contact.warnotte@gmail.com">EMAIL</a> . <a
+      href="https://github.com/vaganuki">Github</a>
+    </div>
+  </div>
+  <div class="formContainer">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div>
+        <input placeholder="Em@il" id="email" formControlName="email" type="email">
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+          <span *ngIf=" registerForm.get('email')?.hasError('required')">Email is required</span>
+          <span *ngIf=" registerForm.get('email')?.hasError('email')">Invalid Email</span>
+        </div>
+      </div>
+
+      <div>
+        <input placeholder="Username" id="username" formControlName="username" type="text">
+        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="error">
+          Username required.
+        </div>
+      </div>
+
+      <div>
+        <input placeholder="Firstname" id="firstName" formControlName="firstName" type="text">
+        <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error">
+          Firstname required.
+        </div>
+      </div>
+
+      <div>
+        <input placeholder="LastName" id="lastName" formControlName="lastName" type="text">
+        <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error">
+          Lastname required.
+        </div>
+      </div>
+
+      <div>
+        <input placeholder="Password" id="password" formControlName="password" type="password">
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error">
+          <span *ngIf="passwordControl?.hasError('required')">Password required</span>
+          <span *ngIf="passwordControl?.hasError('passwordStrength')">
+            {{ passwordControl?.getError('passwordStrength')?.message }}
+          </span>
+          <div *ngIf="passwordControl?.value" class="passwordStrengthIndicator">
+            <div class="strengthBar" [ngClass]="getPasswordStrength()"></div>
+            <small class="strengthText">{{ getPasswordStrength() }}</small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <input placeholder="Confirm password" id="confirmPassword" formControlName="confirmPassword" type="password">
+        <div *ngIf="confirmPasswordControl?.invalid && confirmPasswordControl?.touched"
+             class="error">
+          You must confirm your password.
+        </div>
+        <div *ngIf="passwordMismatch" class="error">
+          Passwords don't match.
+        </div>
+      </div>
+
+      <div>
+        <input id="birthdate" formControlName="birthdate" type="date">
+        <div *ngIf="registerForm.get('birthdate')?.invalid && registerForm.get('birthdate')?.touched" class="error">
+          Birthdate required
+        </div>
+      </div>
+
+      <button>Sign Up</button>
+      <button disabled>Login with Google</button>
+      <div class="loginRoute">
+        <button type="button">
+          Login
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>
