@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Trajan';
+  src: url('/fonts/trajan_ru.ttf');
+}
+
 // 🎨 Palette Tavern of Sparks
 $color-background:     #1D0E26; // Purple Night
 $color-accent:         #FFB43A; // Gold Spark
@@ -9,6 +14,14 @@ $color-notification:   #E84343; // Pixel Red
 $color-muted:          #8C7D99; // Mid Grey
 
 // Exemple d'usage :
+.title {
+  font-family: 'Trajan', serif;
+  font-size: 4rem;
+  background-image: linear-gradient(180deg, $color-accent 0%, $color-notification 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 body {
   background-color: $color-background;
   color: $color-text-primary;

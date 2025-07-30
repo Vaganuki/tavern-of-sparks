@@ -1,0 +1,17 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .title{
+    width: 50%;
+    text-align: center;
+  }
+  & .optionsContainer{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    text-align: center;
+  }
+}
