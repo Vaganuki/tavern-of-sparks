@@ -115,3 +115,18 @@ body {
     }
   }
 }
+
+button{
+  background-color: transparent;
+  border: 1px solid $color-accent;
+  box-shadow:0 0 0 6px $color-background inset, 0 0 0 7px white inset;
+  border-radius: 8px;
+  color: white;
+  height: 3rem;
+  &:hover{
+    background-color: rgba($color-highlight, 0.3);
+  }
+  &:active{
+    background-color: $color-highlight;
+  }
+}
