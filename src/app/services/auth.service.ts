@@ -70,9 +70,6 @@ export class AuthService {
   private decodeToken(token: string): any {
     try {
       const parts = token.split('.');
-      if (parts.length !== 3) {
-        throw new Error('Invalid JWT token format');
-      }
       const payload = parts[1];
 
       const decodedPayload = atob(payload);
