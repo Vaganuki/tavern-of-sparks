@@ -5,7 +5,7 @@ export function passwordStrengthValidator(): ValidatorFn {
     const value = control.value;
     if (!value) return null;
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.=-])[A-Za-z\d@$!%*?&.=-]{8,}$/;
 
     const isValid = passwordRegex.test(value);
     if (!isValid) return {

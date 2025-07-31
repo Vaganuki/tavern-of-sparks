@@ -75,3 +75,43 @@ body {
     }
   }
 }
+
+.error{
+  color: $color-notification;
+}
+
+.inputFlex{
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid $color-accent;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.2rem;
+  background-color: transparent;
+  color: white;
+
+  .inputIcon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-accent;
+    & svg{
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  & input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+
+    &::placeholder {
+      color: white;
+      opacity: 0.7;
+    }
+  }
+}

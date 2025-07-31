@@ -1,11 +1,13 @@
-.container{
+@import "../../../../styles.scss";
+
+.container {
   height: 100vh;
   display: grid;
   grid-template-columns: 25% 75%;
 
-  & .explaination{
+  & .explaination {
     text-align: center;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 0.5rem 1rem;
 
     display: flex;
@@ -14,9 +16,130 @@
 
     height: 100vh;
 
-    & .bottomContact{
+    & .bottomContact {
+      & a {
+        color: $color-accent;
+        text-decoration: none;
+
+        &:hover {
+          color: $color-highlight;
+        }
+      }
     }
+
 
   }
 
+  & .formContainer {
+    align-content: center;
+
+    & form {
+      display: grid;
+      grid-template: repeat(12,fit-content(1em)) / 35% 35% 30%;
+      grid-template-areas:
+        'emailContainer emailContainer .'
+        'emailContainer emailContainer .'
+        'usernameContainer usernameContainer .'
+        'usernameContainer usernameContainer signupButton'
+        'firstnameContainer lastnameContainer signupButton'
+        'firstnameContainer lastnameContainer loginGoogle'
+        'passwordContainer passwordContainer loginGoogle'
+        'passwordContainer passwordContainer loginRoute'
+        'confirmPasswordContainer confirmPasswordContainer loginRoute'
+        'confirmPasswordContainer confirmPasswordContainer .'
+        'birthdateContainer birthdateContainer .'
+        'birthdateContainer birthdateContainer .';
+
+      & > div {
+        margin: 1rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        & label {
+          //height: 75%;
+        }
+
+        & input {
+          width: 100%;
+          height: 2rem;
+        }
+      }
+    }
+  }
+
+}
+
+#emailContainer {
+  grid-area: emailContainer;
+}
+
+#usernameContainer {
+  grid-area: usernameContainer;
+}
+
+#firstnameContainer {
+  grid-area: firstnameContainer;
+}
+
+#lastnameContainer {
+  grid-area: lastnameContainer;
+}
+
+#passwordContainer {
+  grid-area: passwordContainer;
+}
+
+#confirmPasswordContainer {
+  grid-area: confirmPasswordContainer;
+}
+
+#birthdateContainer {
+  grid-area: birthdateContainer;
+}
+
+#signupButton {
+  grid-area: signupButton;
+}
+
+#loginGoogle {
+  grid-area: loginGoogle;
+}
+
+#loginRoute {
+  grid-area: loginRoute;
+
+  & button {
+    width: 100%;
+  }
+}
+.passwordStrengthIndicator {
+  margin-top: 8px;
+
+  .strengthBar {
+    height: 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    margin-bottom: 4px;
+
+    &.Weak {
+      background-color: #dc3545;
+      width: 25%;
+    }
+
+    &.Medium {
+      background-color: #ffc107;
+      width: 50%;
+    }
+
+    &.Strong {
+      background-color: #17a2b8;
+      width: 75%;
+    }
+
+    &.Very-strong {
+      background-color: #28a745;
+      width: 100%;
+    }
+  }
 }
