@@ -56,38 +56,4 @@ form {
   display: block;
 }
 
-.password-strength-indicator {
-  margin-top: 8px;
 
-  .strength-bar {
-    height: 4px;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    margin-bottom: 4px;
-
-    &.Weak {
-      background-color: #dc3545;
-      width: 25%;
-    }
-
-    &.Medium {
-      background-color: #ffc107;
-      width: 50%;
-    }
-
-    &.Strong {
-      background-color: #17a2b8;
-      width: 75%;
-    }
-
-    &.Very-strong {
-      background-color: #28a745;
-      width: 100%;
-    }
-  }
-
-  .strength-text {
-    font-size: 11px;
-    color: #6c757d;
-  }
-}

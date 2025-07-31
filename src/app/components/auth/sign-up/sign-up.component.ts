@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
