@@ -64,7 +64,7 @@ export class AuthService {
   logout(): void {
     this.loggedIn.next(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('userId');
+    localStorage.removeItem('id');
   }
 
   private decodeToken(token: string): any {
