@@ -1,0 +1,50 @@
+import {Component, inject} from '@angular/core';
+import {NavItem} from '../../../interfaces/core/nav-links.model';
+import {AuthService} from '../../../services/auth.service';
+import {Router, RouterLink} from '@angular/router';
+import {CommonModule} from '@angular/common';
+
+@Component({
+  selector: 'app-nav-bar',
+  imports: [
+    CommonModule,
+    RouterLink
+  ],
+  templateUrl: './nav-bar.component.html',
+  styleUrl: './nav-bar.component.scss'
+})
+export class NavBarComponent {
+
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
+
+  _isLoggedIn = this._authService.isLoggedIn;
+
+  logout() {
+    this._authService.logout();
+    void this._router.navigateByUrl('/login');
+  }
+
+  mainMenu: NavItem[] = [
+    {
+      url: '/',
+      name: 'Sparks',
+    },
+    {
+      url: '/',
+      name: 'Events',
+    },
+    {
+      url: '/',
+      name: 'Decks',
+    },
+    {
+      url: '/',
+      name: 'Trades',
+    },
+    {
+      url: '/',
+      name: 'Forums',
+    },
+  ];
+}

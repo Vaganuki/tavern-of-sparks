@@ -1,13 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @font-face {
   font-family: 'Trajan';
   src: url('/fonts/trajan_ru.ttf');
 }
 
+
 *{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
+
+svg{
+  fill: currentColor;
+  height: 1em;
+  aspect-ratio: 1/1;
+}
+
+// Figma Palet
+$dark-background: #0E0615;
+$main-border: #3A2D45;
+
+
+
 
 // 🎨 Palette Tavern of Sparks
 $color-background:     #1D0E26; // Purple Night
@@ -27,6 +43,10 @@ $color-muted:          #8C7D99; // Mid Grey
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+
+  user-select: none; /* Standard syntax */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  -webkit-user-select: none; /* Safari */
 }
 body {
   background-color: $color-background;
