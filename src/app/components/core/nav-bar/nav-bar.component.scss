@@ -37,18 +37,32 @@
       width: fit-content;
     }
   }
+
+  & .log, .logOut, .personalMenu {
+    & .navButton {
+      & span {
+        opacity: 0;
+      }
+
+      &:hover {
+        & span {
+          opacity: 1;
+        }
+      }
+    }
+  }
 }
 
 
 .navButton {
   display: flex;
   flex-direction: column;
-  transition: 0.15s ease-in-out;
+  transition: color 0.5s ease-in, border 0.3s ease-out;
   border-bottom: 1px dashed transparent;
 
   & svg, img {
     height: 1.5rem;
-    margin: 0.5rem 0;
+    margin-bottom: 0.3rem;
   }
 
   & span {
@@ -57,7 +71,7 @@
     -webkit-user-select: none; /* Safari */
     text-align: center;
     //display: none;
-    font-size: 0rem;
+    //opacity: 0;
     margin-bottom: 0.15rem;
     transition: 0.2s ease-in-out;
   }
@@ -66,10 +80,5 @@
     color: $color-highlight;
     cursor: pointer;
     border-bottom: 1px solid $color-highlight;
-    & span{
-      //display: block;
-      font-size: 1rem;
-    }
   }
 }
-
