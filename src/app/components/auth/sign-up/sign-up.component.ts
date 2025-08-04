@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {RegisterForm, RegisterFormData} from '../../../interfaces/forms/register-form.interface';
 import {passwordStrengthValidator} from '../../../services/validators/password-strength.validator';
 import {passwordMatchValidator} from '../../../services/validators/password-match.validator';

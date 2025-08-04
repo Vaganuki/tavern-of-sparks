@@ -1,1 +1,15 @@
-<p>personal-profil works!</p>
+<div class="container">
+  <div class="profileCard">
+    @if (mockup_data.profileImage) {
+      <img src="Image du profil du gars quoi" alt="">
+    } @else {
+      <img class="profilePic" src="default_avatar_placeHolder.png" alt="Default avatar">
+    }
+    <h4>{{mockup_data.username}}</h4>
+    <p>Firstname : {{mockup_data.firstname}}</p>
+    <p>Lastname : {{mockup_data.lastname}}</p>
+    <div class="profileCardFollow">
+      <p><a href="">45</a> Friends</p>
+    </div>
+  </div>
+</div>

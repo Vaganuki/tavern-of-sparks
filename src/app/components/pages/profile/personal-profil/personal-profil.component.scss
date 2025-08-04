@@ -1,0 +1,16 @@
+.container{
+  width: 80%;
+  margin: auto;
+  text-align: center;
+
+  & .profileCard{
+    width: 30%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+}
+
+
+.profilePic{
+  border-radius: 50%;
+}
