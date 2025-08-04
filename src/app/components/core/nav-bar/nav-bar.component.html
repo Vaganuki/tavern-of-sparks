@@ -19,7 +19,7 @@
     }
   </div>
   <div class="personalMenu">
-    @if (_isLoggedIn | async) {
+    @if (_isLoggedIn()) {
       <div class="navButton" [routerLink]="['/profile']">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
           <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -46,7 +46,7 @@
     }
   </div>
 
-  @if (_isLoggedIn | async) {
+  @if (_isLoggedIn()) {
     <div class="logOut">
       <div class="navButton" (click)="logout()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">

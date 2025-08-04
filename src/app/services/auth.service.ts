@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
@@ -13,9 +13,9 @@ export class AuthService {
   constructor() {
   }
 
-  private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
+  private loggedIn = signal<boolean>(this.isAuthenticated());
 
-  public isLoggedIn = this.loggedIn.asObservable();
+  public isLoggedIn = this.loggedIn.asReadonly();
 
   login(data: { email: string, password: string }): Observable<{ token: string }> {
     return new Observable(observer => {
@@ -24,12 +24,13 @@ export class AuthService {
           next: (res) => {
             console.log(res);
             this.saveToken(res.token);
-            this.loggedIn.next(true);
+            this.loggedIn.set(true);
             observer.next(res);
             observer.complete();
           },
           error: error => {
-            console.log(error);
+            // console.log(error);
+            observer.error(error);
           }
         })
     })
@@ -62,7 +63,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.loggedIn.next(false);
+    this.loggedIn.set(false);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
   }
