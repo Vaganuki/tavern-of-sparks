@@ -1,0 +1,23 @@
+.aLilEffort{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  gap: 2rem;
+  & h4{
+    font-size: 5rem;
+    color: white;
+  }
+  & img{
+    height: 20rem;
+  }
+  & button{
+    border: 1px solid white;
+    box-shadow: none;
+    padding: 1.5rem;
+    text-align: center;
+    justify-content: center;
+    height: auto;
+  }
+}
