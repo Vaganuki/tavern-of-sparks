@@ -20,5 +20,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: SignUpComponent},
   {path: 'dev', component: DevComponent},
+  {path: '404', component: NotFoundComponent},
   {path: '**', component: NotFoundComponent},
 ];

@@ -1,0 +1,22 @@
+<div class="profileContainer">
+  <div class="leftCard">
+    @if (user()?.avatar) {
+      <img [src]="user()?.avatar" [alt]="user()?.username">
+    } @else {
+      <img src="default_avatar_placeHolder.png" alt="Default avatar">
+    }
+    <h4>{{user()?.username}}</h4>
+    @if (user()?.pronouns) {
+      <div>{{user()?.pronouns}}</div>
+    }
+    @if (user()?.colorIdentity) {
+      <div>{{user()?.colorIdentity}}</div>
+    }
+    @if (canEdit()) {
+      <button>edit</button>
+    }
+  </div>
+
+<!--  <pre>{{user() | json}}</pre>-->
+<!--  <pre>{{userProfile() | json}}</pre>-->
+</div>
