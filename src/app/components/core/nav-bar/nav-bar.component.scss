@@ -41,12 +41,13 @@
   & .log, .logOut, .personalMenu {
     & .navButton {
       & span {
-        opacity: 0;
+        display: none;
+        transition: 1s;
       }
 
       &:hover {
         & span {
-          opacity: 1;
+          display: block;
         }
       }
     }
