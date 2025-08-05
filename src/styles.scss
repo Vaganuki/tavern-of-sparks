@@ -26,11 +26,11 @@ $main-border: #3A2D45;
 
 
 // 🎨 Palette Tavern of Sparks
-$color-background:     #1D0E26; // Purple Night
+$color-background:     #160E19; // Purple Night
 $color-accent:         #FFB43A; // Gold Spark
 $color-highlight:      #F25C2A; // Deep Ember
 $color-card:           #32243D; // Slate Card
-$color-text-primary:   #FFB43A; // même que accent
+$color-text-primary:   #E7A83F; // même que accent
 $color-text-secondary: #C6B5D9; // Soft Lavender
 $color-notification:   #E84343; // Pixel Red
 $color-muted:          #8C7D99; // Mid Grey
@@ -142,7 +142,6 @@ button{
   box-shadow:0 0 0 6px $color-background inset, 0 0 0 7px white inset;
   border-radius: 8px;
   color: white;
-  height: 3rem;
   &:hover{
     background-color: rgba($color-highlight, 0.3);
   }

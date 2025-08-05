@@ -5,6 +5,8 @@ import {MainPageComponent} from './components/core/main-page/main-page.component
 import {DevComponent} from './components/dev/dev.component';
 import {UserProfileComponent} from './components/pages/user/user-profile/user-profile.component';
 import {NotFoundComponent} from './components/core/not-found/not-found.component';
+import {UserEditComponent} from './components/pages/user/user-edit/user-edit.component';
+import {ProfileEditGuard} from './guard/profile-edit.guard';
 
 export const routes: Routes = [
   {
@@ -14,6 +16,11 @@ export const routes: Routes = [
       {
         path: 'users/:username',
         component: UserProfileComponent,
+      },
+      {
+        path: 'users/:username/edit',
+        component: UserEditComponent,
+        canActivate: [ProfileEditGuard]
       }
     ]
   },

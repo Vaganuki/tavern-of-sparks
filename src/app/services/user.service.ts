@@ -14,9 +14,6 @@ export class UserService {
 
   private get authHeaders() {
     const token = this._authService.getToken();
-    if (!token) {
-      throw new Error('Unauthorized');
-    }
 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -29,5 +26,18 @@ export class UserService {
 
   getUserByUsername(username: string) {
     return this._http.get<UserProfileResponse>(`${environment.apiUrl}/user/profile/${username}`, {headers: this.authHeaders});
+  }
+
+  updateUser(userId: number, userData: {
+    username?: string,
+    email?: string,
+    firstName?: string,
+    lastName?: string,
+    birthDate?: string,
+    password?: string,
+    colorIdentity?: string,
+    pronouns?: string,
+  }) {
+    return this._http.put(`${environment.apiUrl}/user/${userId}`, userData, {headers: this.authHeaders});
   }
 }

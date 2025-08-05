@@ -1,22 +1,50 @@
 <div class="profileContainer">
   <div class="leftCard">
     @if (user()?.avatar) {
-      <img [src]="user()?.avatar" [alt]="user()?.username">
+      <img class="avatar" [src]="user()?.avatar" [alt]="user()?.username">
     } @else {
-      <img src="default_avatar_placeHolder.png" alt="Default avatar">
+      <img class="avatar" src="default_avatar_placeHolder.png" alt="Default avatar">
     }
-    <h4>{{user()?.username}}</h4>
-    @if (user()?.pronouns) {
-      <div>{{user()?.pronouns}}</div>
-    }
-    @if (user()?.colorIdentity) {
-      <div>{{user()?.colorIdentity}}</div>
-    }
-    @if (canEdit()) {
-      <button>edit</button>
-    }
+    <div class="cardTitleContainer">
+      <h3>{{ user()?.username }}</h3>
+      @if (canEdit()) {
+        <button [routerLink]="['/users/', user()?.username,'edit']">Edit</button>
+      }
+    </div>
+    <div class="personalInfos">
+      @if (user()?.pronouns) {
+        <div>{{ user()?.pronouns }}</div>
+      }
+      <span class="manaContainer">
+      @if (user()?.colorIdentity!.includes('W')) {
+        <img src="/mtg_symbology/white_mana.svg" alt="white_mana">
+      }
+        @if (user()?.colorIdentity!.includes('U')) {
+          <img src="/mtg_symbology/blue_mana.svg" alt="blue_mana">
+        }
+        @if (user()?.colorIdentity!.includes('B')) {
+          <img src="/mtg_symbology/black_mana.svg" alt="black_mana">
+        }
+        @if (user()?.colorIdentity!.includes('R')) {
+          <img src="/mtg_symbology/red_mana.svg" alt="red_mana">
+        }
+        @if (user()?.colorIdentity!.includes('G')) {
+          <img src="/mtg_symbology/green_mana.svg" alt="green_mana">
+        }
+        @if (user()?.colorIdentity!.includes('C')) {
+          <img src="/mtg_symbology/colorless_mana.svg" alt="colorless_mana">
+        }
+    </span>
+    </div>
+    <div class="generalInfos">
+
+      <p><a href="">2</a> friends</p>
+      <div class="joinedAt">
+        Joined {{user()?.createdAt | date:'MMM yyyy'}}
+      </div>
+    </div>
   </div>
 
-<!--  <pre>{{user() | json}}</pre>-->
-<!--  <pre>{{userProfile() | json}}</pre>-->
+  <!--  <pre>{{user() | json}}</pre>-->
+  <!--  <pre>{{userProfile() | json}}</pre>-->
 </div>

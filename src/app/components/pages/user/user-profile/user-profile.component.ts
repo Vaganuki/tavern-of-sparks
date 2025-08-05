@@ -1,5 +1,5 @@
 import {Component, computed, inject,} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {UserService} from '../../../../services/user.service';
 import {of, switchMap} from 'rxjs';
@@ -7,7 +7,10 @@ import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -34,6 +37,4 @@ export class UserProfileComponent {
   user = computed(() => this.userProfile()?.user);
   isOwnProfile = computed(() => this.userProfile()?.isOwnProfile);
   canEdit = computed(() => this.userProfile()?.canEdit);
-
-  protected readonly toString = toString;
 }

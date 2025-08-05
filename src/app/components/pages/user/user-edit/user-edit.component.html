@@ -1,0 +1,76 @@
+<form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+
+  <input placeholder="Em@il" id="email" formControlName="email" type="email">
+  @if (updateUserForm.get('email')?.invalid && updateUserForm.get('email')?.touched) {
+    <div class="error">
+      @if (updateUserForm.get('email')?.hasError('required')) {
+        <span>Email is required</span>
+      }
+      @if (updateUserForm.get('email')?.hasError('email')) {
+        <span>Invalid Email</span>
+      }
+    </div>
+  }
+
+
+  <input placeholder="Username" id="username" formControlName="username" type="text">
+  @if (updateUserForm.get('username')?.invalid && updateUserForm.get('username')?.touched) {
+    <div class="error">
+      Username required.
+    </div>
+  }
+
+  <input placeholder="Firstname" id="firstName" formControlName="firstName" type="text">
+  @if (updateUserForm.get('firstName')?.invalid && updateUserForm.get('firstName')?.touched) {
+    <div class="error">
+      Firstname required.
+    </div>
+  }
+
+  <input placeholder="LastName" id="lastName" formControlName="lastName" type="text">
+  @if (updateUserForm.get('lastName')?.invalid && updateUserForm.get('lastName')?.touched) {
+    <div class="error">
+      Lastname required.
+    </div>
+  }
+
+  <input placeholder="Pronouns" id="pronouns" formControlName="pronouns" type="text">
+
+  <input placeholder="Password" id="password" formControlName="password" type="password">
+  @if (passwordControl?.value) {
+    <div class="passwordStrengthIndicator">
+      <div class="strengthBar" [ngClass]="getPasswordStrength()"></div>
+      <small class="strengthText">{{ getPasswordStrength() }}</small>
+    </div>
+  }
+  @if (updateUserForm.get('password')?.invalid && updateUserForm.get('password')?.touched) {
+    <div class="error">
+      @if (passwordControl?.hasError('required')) {
+        <span>Password required</span>
+      }
+      @if (passwordControl?.hasError('passwordStrength')) {
+        <span>{{ passwordControl?.getError('passwordStrength')?.message }}</span>
+      }
+    </div>
+  }
+  <input placeholder="Confirm password" id="confirmPassword" formControlName="confirmPassword" type="password">
+  @if (confirmPasswordControl?.invalid && confirmPasswordControl?.touched) {
+    <div class="error">
+      You must confirm your password.
+    </div>
+  }
+  @if (passwordMismatch) {
+    <div class="error">
+      Passwords don't match.
+    </div>
+  }
+
+  <input id="birthdate" formControlName="birthdate" type="date">
+  @if (updateUserForm.get('birthdate')?.invalid && updateUserForm.get('birthdate')?.touched) {
+    <div class="error">
+      Birthdate required
+    </div>
+  }
+
+  <button id="signupButton">Save Settings</button>
+</form>
