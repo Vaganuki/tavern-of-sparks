@@ -1,14 +1,11 @@
-import {Component, computed, inject, OnInit} from '@angular/core';
+import {Component, computed, effect, inject, OnInit} from '@angular/core';
 import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {passwordStrengthValidator} from '../../../../services/validators/password-strength.validator';
 import {passwordMatchValidator} from '../../../../services/validators/password-match.validator';
-import {environment} from '../../../../../environments/environment';
 import {UpdateUserForm, UpdateUserFormData} from '../../../../interfaces/forms/update-user-form.interface';
 import {CommonModule} from '@angular/common';
 import {UserService} from '../../../../services/user.service';
-import {AuthService} from '../../../../services/auth.service';
 import {ColorOption} from '../../../../interfaces/forms/color-option.interface';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {of, switchMap} from 'rxjs';
@@ -25,10 +22,8 @@ import {of, switchMap} from 'rxjs';
 export class UserEditComponent implements OnInit {
 
   private _fb = inject(NonNullableFormBuilder);
-  private _http = inject(HttpClient);
   private _router = inject(Router);
 
-  private _authService = inject(AuthService);
   private _activatedRoute = inject(ActivatedRoute);
   private _userService = inject(UserService);
 
@@ -48,11 +43,17 @@ export class UserEditComponent implements OnInit {
         return of(null)
       })
     )
-  )
+  );
+
+  private _userProfileEffect = effect(()=>{
+    const profileData = this.userProfile();
+    if (profileData?.user) {
+      this.loadUserDataFromProfile(profileData);
+    }
+  });
 
   ngOnInit() {
     this.initializeForm();
-    this.loadUserData();
   }
 
   colorOptions: ColorOption[] = [
@@ -128,16 +129,6 @@ export class UserEditComponent implements OnInit {
         console.error(err);
       }
     })
-
-    this._http.post(`${environment.apiUrl}/user/`, updateData)
-      .subscribe({
-        next: () => {
-          void this._router.navigate(['/login']);
-        },
-        error: error => {
-          alert(error.message);
-        }
-      })
   };
 
   get passwordMismatch() {
@@ -180,31 +171,28 @@ export class UserEditComponent implements OnInit {
         this.updateUserForm.get('password')?.clearValidators();
         confirmPasswordControl?.clearValidators();
       }
-      this.updateUserForm.get('password')?.updateValueAndValidity();
+      // this.updateUserForm.get('password')?.updateValueAndValidity();
       confirmPasswordControl?.updateValueAndValidity();
     })
   }
 
-  private loadUserData() {
-    const profileData = this.userProfile();
-    console.log(profileData);
-    if (profileData?.user) {
-      const user = profileData.user;
+  private loadUserDataFromProfile(profileData:any) {
+    const user = profileData.user;
 
-      this.updateUserForm.patchValue({
-        email: user.email,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        pronouns: user.pronouns || '',
-        birthdate: user.birthdate ? new Date(user.birthdate).toISOString().split('T')[0] : '',
-      });
+    this.updateUserForm.patchValue({
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      pronouns: user.pronouns || '',
+      birthdate: user.birthdate ? new Date(user.birthdate).toISOString().split('T')[0] : '',
+    })
 
-      if (user.colorIdentity) {
-        this.selectedColors = user.colorIdentity.split('');
-      }
+    if (user.colorIdentity) {
+      this.selectedColors = user.colorIdentity.split('');
     }
   }
+
 
   toggleColor(color: string) {
     const index = this.selectedColors.indexOf(color);
@@ -230,5 +218,4 @@ export class UserEditComponent implements OnInit {
   cancelEdit(){
     void this._router.navigate(['/users', this.username()]);
   }
-
 }
