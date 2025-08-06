@@ -64,7 +64,7 @@ export class UserEditComponent implements OnInit {
     {
       letter: 'U',
       name: 'Blue',
-      svg: '#blue_mana.svg',
+      svg: 'blue_mana.svg',
     },
     {
       letter: 'B',
@@ -109,6 +109,26 @@ export class UserEditComponent implements OnInit {
     }
 
     const updateData: UpdateUserFormData = this.updateUserForm.getRawValue();
+
+    updateData.colorIdentity = this.selectedColors.join('');
+
+    delete updateData.confirmPassword;
+    if(!updateData.password) delete updateData.password;
+
+    const userId = this.userProfile()?.user?.id;
+    if (!userId) {
+      return;
+    }
+
+    this._userService.updateUser(userId, updateData).subscribe({
+      next: () => {
+        void this._router.navigate(['/users/',this.username()]);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+
     this._http.post(`${environment.apiUrl}/user/`, updateData)
       .subscribe({
         next: () => {
@@ -204,7 +224,11 @@ export class UserEditComponent implements OnInit {
   }
 
   getSelectedColorDisplay(): string {
-    return this.selectedColors.length > 0 ? this.selectedColors.join() : 'Aucune';
+    return this.selectedColors.length > 0 ? this.selectedColors.join() : 'None';
+  }
+
+  cancelEdit(){
+    void this._router.navigate(['/users', this.username()]);
   }
 
 }

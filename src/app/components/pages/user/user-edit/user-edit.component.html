@@ -1,76 +1,111 @@
 <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
 
-  <input placeholder="Em@il" id="email" formControlName="email" type="email">
-  @if (updateUserForm.get('email')?.invalid && updateUserForm.get('email')?.touched) {
-    <div class="error">
-      @if (updateUserForm.get('email')?.hasError('required')) {
-        <span>Email is required</span>
+
+  <div class="formGroup">
+    <input placeholder="Em@il" id="email" formControlName="email" type="email">
+    @if (updateUserForm.get('email')?.invalid && updateUserForm.get('email')?.touched) {
+      <div class="error">
+        @if (updateUserForm.get('email')?.hasError('required')) {
+          <span>Email is required</span>
+        }
+        @if (updateUserForm.get('email')?.hasError('email')) {
+          <span>Invalid Email</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="formGroup">
+    <input placeholder="Username" id="username" formControlName="username" type="text">
+    @if (updateUserForm.get('username')?.invalid && updateUserForm.get('username')?.touched) {
+      <div class="error">
+        Username required.
+      </div>
+    }
+  </div>
+
+  <div class="formGroup">
+    <input placeholder="Firstname" id="firstName" formControlName="firstName" type="text">
+    @if (updateUserForm.get('firstName')?.invalid && updateUserForm.get('firstName')?.touched) {
+      <div class="error">
+        Firstname required.
+      </div>
+    }
+  </div>
+
+  <div class="formGroup">
+    <input placeholder="LastName" id="lastName" formControlName="lastName" type="text">
+    @if (updateUserForm.get('lastName')?.invalid && updateUserForm.get('lastName')?.touched) {
+      <div class="error">
+        Lastname required.
+      </div>
+    }
+  </div>
+
+  <div class="formGroup">
+    <input placeholder="Pronouns" id="pronouns" formControlName="pronouns" type="text">
+  </div>
+
+  <div class="formGroup">
+    <div class="colorIdentitySelector">
+      @for (color of colorOptions; track color.letter) {
+        <div class="colorOption" [class.selected]="isColorSelected(color.letter)" (click)="toggleColor(color.letter)">
+          <img class="colorSvg" [src]="'/mtg_symbology/'+ color.svg" [alt]="color.name">
+        </div>
       }
-      @if (updateUserForm.get('email')?.hasError('email')) {
-        <span>Invalid Email</span>
-      }
+      <div class="selectedColors">
+        <small>Current selection: {{getSelectedColorDisplay()}}</small>
+      </div>
     </div>
-  }
+  </div>
 
 
-  <input placeholder="Username" id="username" formControlName="username" type="text">
-  @if (updateUserForm.get('username')?.invalid && updateUserForm.get('username')?.touched) {
-    <div class="error">
-      Username required.
-    </div>
-  }
+  <div class="formGroup">
+    <input placeholder="Password" id="password" formControlName="password" type="password">
+    @if (passwordControl?.value) {
+      <div class="passwordStrengthIndicator">
+        <div class="strengthBar" [ngClass]="getPasswordStrength()"></div>
+        <small class="strengthText">{{ getPasswordStrength() }}</small>
+      </div>
+    }
+    @if (updateUserForm.get('password')?.invalid && updateUserForm.get('password')?.touched) {
+      <div class="error">
+        @if (passwordControl?.hasError('required')) {
+          <span>Password required</span>
+        }
+        @if (passwordControl?.hasError('passwordStrength')) {
+          <span>{{ passwordControl?.getError('passwordStrength')?.message }}</span>
+        }
+      </div>
+    }
+  </div>
 
-  <input placeholder="Firstname" id="firstName" formControlName="firstName" type="text">
-  @if (updateUserForm.get('firstName')?.invalid && updateUserForm.get('firstName')?.touched) {
-    <div class="error">
-      Firstname required.
-    </div>
-  }
+  <div class="formGroup">
+    <input placeholder="Confirm password" id="confirmPassword" formControlName="confirmPassword" type="password">
+    @if (confirmPasswordControl?.invalid && confirmPasswordControl?.touched) {
+      <div class="error">
+        You must confirm your password.
+      </div>
+    }
+    @if (passwordMismatch) {
+      <div class="error">
+        Passwords don't match.
+      </div>
+    }
+  </div>
 
-  <input placeholder="LastName" id="lastName" formControlName="lastName" type="text">
-  @if (updateUserForm.get('lastName')?.invalid && updateUserForm.get('lastName')?.touched) {
-    <div class="error">
-      Lastname required.
-    </div>
-  }
+  <div class="formGroup">
+    <input id="birthdate" formControlName="birthdate" type="date">
+    @if (updateUserForm.get('birthdate')?.invalid && updateUserForm.get('birthdate')?.touched) {
+      <div class="error">
+        Birthdate required
+      </div>
+    }
+  </div>
 
-  <input placeholder="Pronouns" id="pronouns" formControlName="pronouns" type="text">
+  <div class="formActions">
+    <button type="button" (click)="cancelEdit()">Cancel</button>
+    <button type="submit" id="updateButton" [disabled]="updateUserForm.invalid">Save Settings</button>
+  </div>
 
-  <input placeholder="Password" id="password" formControlName="password" type="password">
-  @if (passwordControl?.value) {
-    <div class="passwordStrengthIndicator">
-      <div class="strengthBar" [ngClass]="getPasswordStrength()"></div>
-      <small class="strengthText">{{ getPasswordStrength() }}</small>
-    </div>
-  }
-  @if (updateUserForm.get('password')?.invalid && updateUserForm.get('password')?.touched) {
-    <div class="error">
-      @if (passwordControl?.hasError('required')) {
-        <span>Password required</span>
-      }
-      @if (passwordControl?.hasError('passwordStrength')) {
-        <span>{{ passwordControl?.getError('passwordStrength')?.message }}</span>
-      }
-    </div>
-  }
-  <input placeholder="Confirm password" id="confirmPassword" formControlName="confirmPassword" type="password">
-  @if (confirmPasswordControl?.invalid && confirmPasswordControl?.touched) {
-    <div class="error">
-      You must confirm your password.
-    </div>
-  }
-  @if (passwordMismatch) {
-    <div class="error">
-      Passwords don't match.
-    </div>
-  }
-
-  <input id="birthdate" formControlName="birthdate" type="date">
-  @if (updateUserForm.get('birthdate')?.invalid && updateUserForm.get('birthdate')?.touched) {
-    <div class="error">
-      Birthdate required
-    </div>
-  }
-
-  <button id="signupButton">Save Settings</button>
 </form>

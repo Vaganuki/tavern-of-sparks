@@ -8,6 +8,7 @@ export interface UserProfile {
   lastName?: string;
   firstName?: string;
   birthdate?: string;
+  id?: number;
 }
 
 export interface UserProfileResponse {

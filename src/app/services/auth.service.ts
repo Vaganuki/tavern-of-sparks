@@ -22,7 +22,7 @@ export class AuthService {
       this._http.post<{ token: string }>(`${environment.apiUrl}/user/login`, data)
         .subscribe({
           next: (res) => {
-            console.log(res);
+            // console.log(res);
             this.saveToken(res.token);
             this.loggedIn.set(true);
             observer.next(res);
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   saveToken(token : string) {
-    console.log("Access Token", token);
+    // console.log("Access Token", token);
     localStorage.setItem('token', token);
 
     try {

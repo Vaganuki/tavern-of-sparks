@@ -18,8 +18,8 @@ export interface UpdateUserFormData {
   firstName: string;
   lastName: string;
   birthdate: string;
-  password: string;
-  confirmPassword: string;
-  colorIdentity: string;
-  pronouns: string;
+  password?: string;
+  confirmPassword?: string;
+  colorIdentity?: string;
+  pronouns?: string;
 }
