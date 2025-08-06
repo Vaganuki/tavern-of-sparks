@@ -1,6 +1,6 @@
 <div class="container">
   <div class="navTitle">
-    <h1 class="title">Tavern Of Sparks</h1>
+    <h1 class="title" [routerLink]="['/']">Tavern Of Sparks</h1>
   </div>
   <div class="mainMenu">
     @for (item of mainMenu; track item.name) {
@@ -20,7 +20,7 @@
   </div>
   <div class="personalMenu">
     @if (_isLoggedIn()) {
-      <div class="navButton" [routerLink]="['/profile']">
+      <div class="navButton" [routerLink]="['/users', _loggedUsername()]">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
           <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
           <path

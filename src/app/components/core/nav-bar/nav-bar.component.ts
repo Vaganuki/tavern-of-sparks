@@ -20,6 +20,8 @@ export class NavBarComponent {
 
   _isLoggedIn = this._authService.isLoggedIn;
 
+  _loggedUsername = this._authService.loggedUsername;
+
   logout() {
     this._authService.logout();
     void this._router.navigateByUrl('/login');

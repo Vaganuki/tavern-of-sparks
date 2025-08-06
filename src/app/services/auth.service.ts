@@ -17,6 +17,8 @@ export class AuthService {
 
   public isLoggedIn = this.loggedIn.asReadonly();
 
+  public loggedUsername = signal<string>(localStorage['username']);
+
   login(data: { email: string, password: string }): Observable<{ token: string }> {
     return new Observable(observer => {
       this._http.post<{ token: string }>(`${environment.apiUrl}/user/login`, data)
@@ -36,15 +38,17 @@ export class AuthService {
     })
   }
 
-  saveToken(token : string) {
+  saveToken(token: string) {
     // console.log("Access Token", token);
     localStorage.setItem('token', token);
 
     try {
       const decoded = this.decodeToken(token);
       const id = decoded.id;
+      const username = decoded.username;
       if (id) {
         localStorage.setItem('id', id);
+        localStorage.setItem('username', username);
       } else {
         console.error('Can\'t find user ID from token');
       }
