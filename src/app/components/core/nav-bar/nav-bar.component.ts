@@ -37,8 +37,9 @@ export class NavBarComponent {
       name: 'Events',
     },
     {
-      url: '/',
+      url: '/decks/public',
       name: 'Decks',
+      icon:'card-list'
     },
     {
       url: '/',

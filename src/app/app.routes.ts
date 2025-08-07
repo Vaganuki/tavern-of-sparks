@@ -7,6 +7,7 @@ import {UserProfileComponent} from './components/pages/user/user-profile/user-pr
 import {NotFoundComponent} from './components/core/not-found/not-found.component';
 import {UserEditComponent} from './components/pages/user/user-edit/user-edit.component';
 import {ProfileEditGuard} from './guard/profile-edit.guard';
+import {DecklistDashboardComponent} from './components/pages/deck/decklist-dashboard/decklist-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
         path: 'users/:username/edit',
         component: UserEditComponent,
         canActivate: [ProfileEditGuard]
+      },
+      {
+        path: 'decks/public',
+        component: DecklistDashboardComponent,
       }
     ]
   },

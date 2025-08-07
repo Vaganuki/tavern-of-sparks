@@ -4,7 +4,7 @@
   </div>
   <div class="mainMenu">
     @for (item of mainMenu; track item.name) {
-      <div class="navButton">
+      <div class="navButton" [routerLink]="[item.url]">
         @if (item.icon) {
           <!-- src has to change when I get rid of placeholders -->
           <img [src]="'/svg_placeholders/' + item.icon + '.svg'" [alt]="item.icon">
