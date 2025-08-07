@@ -7,7 +7,10 @@
       <div class="navButton" [routerLink]="[item.url]">
         @if (item.icon) {
           <!-- src has to change when I get rid of placeholders -->
-          <img [src]="'/svg_placeholders/' + item.icon + '.svg'" [alt]="item.icon">
+          <div class="navIcon" style="
+               mask: url(/svg_placeholders/{{item.icon}}.svg) no-repeat center;
+               -webkit-mask: url(/svg_placeholders/{{item.icon}}.svg) no-repeat center;">
+          </div>
         } @else {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path

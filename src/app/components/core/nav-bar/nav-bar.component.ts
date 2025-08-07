@@ -31,10 +31,12 @@ export class NavBarComponent {
     {
       url: '/',
       name: 'Sparks',
+      icon: 'house-heart-fill',
     },
     {
       url: '/',
       name: 'Events',
+      icon: 'calendar-event',
     },
     {
       url: '/decks/public',
@@ -44,10 +46,12 @@ export class NavBarComponent {
     {
       url: '/',
       name: 'Trades',
+      icon:'arrow-repeat',
     },
     {
       url: '/',
       name: 'Forums',
+      icon:'chat-square-quote-fill',
     },
   ];
 }
