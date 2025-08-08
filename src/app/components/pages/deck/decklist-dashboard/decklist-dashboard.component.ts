@@ -2,12 +2,14 @@ import {Component, inject, signal} from '@angular/core';
 import {AuthService} from '../../../../services/auth.service';
 import {NewDeckListData, NewDeckListForm} from "../../../../interfaces/forms/decklist-form.interface";
 import {FormBuilder, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {CardSelectorComponent} from '../../../core/assets/card-selector/card-selector.component';
 
 @Component({
     selector: 'app-decklist-dashboard',
-    imports: [
-        ReactiveFormsModule
-    ],
+  imports: [
+    ReactiveFormsModule,
+    CardSelectorComponent
+  ],
     templateUrl: './decklist-dashboard.component.html',
     styleUrl: './decklist-dashboard.component.scss'
 })

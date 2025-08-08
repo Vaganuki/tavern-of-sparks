@@ -1,3 +1,10 @@
 <app-nav-bar></app-nav-bar>
-<!--<p>main-page works!</p>-->
+<app-card-selector (cardSelected)="onCardSelected($event)"> </app-card-selector>
+
+<!-- Affichage conditionnel de la carte sélectionnée -->
+<div *ngIf="selectedCard" class="selected-card-display">
+  <h3>Carte sélectionnée :</h3>
+  <p><strong>{{ selectedCard.name }}</strong></p>
+  <p>Oracle ID: {{ selectedCard?.oracle_id }}</p>
+</div><!--<p>main-page works!</p>-->
 <router-outlet/>
