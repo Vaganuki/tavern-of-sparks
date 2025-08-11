@@ -1,0 +1,17 @@
+@if (isLoading) {
+  <div>
+    Loading formats...
+  </div>
+}
+@if (errorMessage) {
+  <div class="error">{{ errorMessage }}</div>
+  <button (click)="retryLoad()">Retry</button>
+}
+@if (!isLoading && !errorMessage) {
+
+  <select (change)="onFormatChange($event)">
+    @for (item of formats; track item.id) {
+      <option [value]="item.id">{{ item.name }}</option>
+    }
+  </select>
+}

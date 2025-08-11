@@ -34,12 +34,12 @@
           </div>
           <div class="formGroup">
             <label for="main_card_id">Main Card (optional)</label>
-            <input type="text" formControlName="main_card_id">
-            <app-card-selector></app-card-selector>
+            <app-card-selector (cardSelected)="onCardSelected($event)"></app-card-selector>
           </div>
           <div class="formGroup">
             <label for="game_format">Format:</label>
-            <input type="text" formControlName="game_format">
+<!--            <input type="text" formControlName="game_format">-->
+            <app-game-format-selector (formatSelected)="onGameFormatSelected($event)"></app-game-format-selector>
           </div>
           <div class="formAction">
             <button type="button" (click)="cancelCreation()">Cancel</button>
@@ -49,4 +49,11 @@
       </div>
     </div>
   }
+}
+
+@for (deck of latestDecks; track deck.id) {
+  <div>
+    <h6>{{ deck.name }}</h6>
+
+  </div>
 }

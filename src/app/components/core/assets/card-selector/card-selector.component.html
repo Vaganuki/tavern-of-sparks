@@ -1,25 +1,25 @@
 <div [class.has-error]="state.error" [class.is-loading]="state.isLoading" class="card-selector">
-  <label for="" class="sr-only">{{ config.placeholder }}</label>
+  <!--  <label for="" class="sr-only">{{ config.placeholder }}</label>-->
   <div class="input-container">
-    <input [id]="inputId" [formControl]="searchControl" [placeholder]="config.placeholder" role="combobox"
-           aria-haspopup="listbox" type="text" class="search-input" #searchInput>
+    <input [id]="inputId" [formControl]="searchControl" [placeholder]="config.placeholder" type="text"
+           class="search-input" #searchInput>
     @if (state.isLoading) {
-      <div class="loading-indicator" aria-hidden="true">
+      <div class="loading-indicator">
         <div class="spinner"></div>
       </div>
     }
     @if (selectedCard && !state.isLoading) {
-      <div class="selected-indicator" aria-hidden="true">✓</div>
+      <div class="selected-indicator">✓</div>
     }
 
     @if (state.error) {
-      <div [id]="errorId" class="error-message" role="alert" aria-live="polite">{{ state.error }}</div>
+      <div [id]="errorId" class="error-message">{{ state.error }}</div>
     }
 
     @if (showSuggestions && state.results?.cards) {
-      <ul [id]="listboxId" class="suggestions-list" role="listbox" [attr.aria-label]="'Suggestions for '+ currentQuery">
+      <ul [id]="listboxId" class="suggestions-list">
         @for (card of state.results?.cards || []; track card.oracle_id; let i = $index) {
-          <li [id]="getOptionId(i)" class="suggestion-item" [class.selected]="i === state.selectedIndex" role="option"
+          <li [id]="getOptionId(i)" class="suggestion-item" [class.selected]="i === state.selectedIndex"
               tabindex="-1" (mouseenter)="updateSelectedIndex(i)" (click)="selectCard(card, i)">
             <div class="card-content">
               <div class="card-name">{{ card.name }}</div>
@@ -30,7 +30,7 @@
     }
 
     @if (showNoResults) {
-      <div class="no-results" role="status" aria-live="polite">
+      <div class="no-results">
         {{ config.noResultsText.replace('{query}', currentQuery) }}
       </div>
     }
@@ -41,8 +41,7 @@
           <strong>{{ selectedCard.name }}</strong>
           <span>{{ selectedCard.oracle_id }}</span>
         </div>
-        <button type="button" class="clear-button" (click)="clearSelection()"
-                [attr.aria-label]="'Effacer la sélection de ' + selectedCard.name">
+        <button type="button" class="clear-button" (click)="clearSelection()">
           ×
         </button>
       </div>
