@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {NewDeckListData} from '../interfaces/forms/decklist-form.interface';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
-import {Decklist} from '../interfaces/core/deck_list.interface';
+import {Decklist, DeckResponse} from '../interfaces/core/deck_list.interface';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -39,6 +39,10 @@ export class Deck_listService {
 
   getRecentDecklist(): Observable<Decklist[]> {
     return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/recent`)
+  }
+
+  getDecklistDetails(id: string): Observable<DeckResponse> {
+    return this._http.get<DeckResponse>(`${environment.apiUrl}/deck_list/details/${id}`)
   }
 
 }

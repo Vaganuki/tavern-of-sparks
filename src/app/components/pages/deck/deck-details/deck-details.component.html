@@ -1,1 +1,16 @@
-<p>deck-details works!</p>
+<div style="display: flex; flex-flow: column; justify-content: space-between; height: 80vh;" class="container">
+  <div>
+
+    @for (group of groupedCards(); track group.type) {
+      <div>
+        <h3>{{group.type}} ({{group.count}})</h3>
+        @for (card of group.cards; track card.card.card.oracle_id) {
+          <div>{{card.count}}x {{card.card.card.name}}</div>
+        }
+      </div>
+    }
+
+  </div>
+<!--  <div>{{groupedCards() | json }}</div>-->
+<!--  <div>{{ deckList() | json }}</div>-->
+</div>
