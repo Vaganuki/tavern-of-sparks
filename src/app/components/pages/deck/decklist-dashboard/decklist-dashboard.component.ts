@@ -7,6 +7,8 @@ import {MtgCard} from '../../../../interfaces/core/cards/card.interface';
 import {GameFormatSelectorComponent} from '../../../core/assets/game-format-selector/game-format-selector.component';
 import {Deck_listService} from '../../../../services/deck_list.service';
 import {Decklist, GameFormat} from '../../../../interfaces/core/deck_list.interface';
+import {RelativeTimePipe} from '../../../../pipes/relativeTime.pipe';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-decklist-dashboard',
@@ -14,6 +16,8 @@ import {Decklist, GameFormat} from '../../../../interfaces/core/deck_list.interf
     ReactiveFormsModule,
     CardSelectorComponent,
     GameFormatSelectorComponent,
+    RelativeTimePipe,
+    RouterLink,
   ],
   templateUrl: './decklist-dashboard.component.html',
   styleUrl: './decklist-dashboard.component.scss'

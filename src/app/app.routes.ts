@@ -8,6 +8,8 @@ import {NotFoundComponent} from './components/core/not-found/not-found.component
 import {UserEditComponent} from './components/pages/user/user-edit/user-edit.component';
 import {ProfileEditGuard} from './guard/profile-edit.guard';
 import {DecklistDashboardComponent} from './components/pages/deck/decklist-dashboard/decklist-dashboard.component';
+import {DeckDetailsComponent} from './components/pages/deck/deck-details/deck-details.component';
+
 
 export const routes: Routes = [
   {
@@ -26,7 +28,11 @@ export const routes: Routes = [
       {
         path: 'decks/public',
         component: DecklistDashboardComponent,
-      }
+      },
+      {
+        path: 'decks/:deckid',
+        component: DeckDetailsComponent,
+      },
     ]
   },
   {path: 'login', component: LoginComponent},

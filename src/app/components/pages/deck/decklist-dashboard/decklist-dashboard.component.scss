@@ -1,5 +1,33 @@
 @use 'sass:color';
 @import '../../../../../styles.scss';
+
+.menu{
+  border-bottom: 2px solid $main-border;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 75%;
+  border-right: 2px solid $main-border;
+
+  & tr:not(:last-child) {
+    border-bottom: 1px solid $main-border;
+  }
+  & tr{
+    & td {
+      padding: 1rem;
+    }
+  }
+  & thead{
+    border-bottom: 2px solid $main-border;
+    & th{
+      padding: 1rem;
+    }
+  }
+}
+
+
 .overlay {
   position: absolute;
   top: 50%;
@@ -17,7 +45,8 @@
     background-color: $dark-background;
     border: 2px solid $main-border;
     border-radius: 8px;
-    & .formTitleContainer{
+
+    & .formTitleContainer {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -25,18 +54,20 @@
       padding: 1rem;
       border-bottom: 1px solid $main-border;
 
-      & .formTitle{
+      & .formTitle {
         font-size: 1.2rem;
         font-weight: bold;
       }
 
-      & .tabClose{
+      & .tabClose {
         height: 100%;
         aspect-ratio: 1/1;
-        & svg{
+
+        & svg {
           border-radius: 50%;
           height: 1.2rem;
-          &:hover{
+
+          &:hover {
             fill: color.adjust($color-text-primary, $lightness: 25%);
             box-shadow: 0 0 1rem $color-text-primary, inset 0 0 .3rem $color-text-primary;
           }
