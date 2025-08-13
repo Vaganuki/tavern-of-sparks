@@ -30,6 +30,10 @@ export const routes: Routes = [
         component: DecklistDashboardComponent,
       },
       {
+        path: 'decks/private',
+        component: DecklistDashboardComponent,
+      },
+      {
         path: 'decks/:deckid',
         component: DeckDetailsComponent,
       },

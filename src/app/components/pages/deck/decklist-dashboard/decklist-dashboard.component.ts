@@ -8,7 +8,10 @@ import {GameFormatSelectorComponent} from '../../../core/assets/game-format-sele
 import {Deck_listService} from '../../../../services/deck_list.service';
 import {Decklist, GameFormat} from '../../../../interfaces/core/deck_list.interface';
 import {RelativeTimePipe} from '../../../../pipes/relativeTime.pipe';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-decklist-dashboard',
@@ -27,6 +30,8 @@ export class DecklistDashboardComponent implements OnInit {
   private _authService = inject(AuthService);
   private _fb = inject(FormBuilder)
   private _decklistService = inject(Deck_listService);
+  private _router = inject(Router);
+
 
   isLoggedIn = this._authService.isLoggedIn();
   isFormOpen = signal<boolean>(false);
@@ -39,10 +44,11 @@ export class DecklistDashboardComponent implements OnInit {
     game_format: [0, Validators.required],
   });
 
-  latestDecks: Decklist[] = []
+  showedDecks: Decklist[] = []
 
   ngOnInit() {
     this.getDeckList();
+    console.log(this._router.url);
   }
 
   onSubmit() {
@@ -51,7 +57,6 @@ export class DecklistDashboardComponent implements OnInit {
     const newDecklistData: NewDeckListData = this.newDeckListForm.getRawValue();
     if (this.selectedCard) newDecklistData.main_card_id = this.selectedCard.oracle_id;
 
-    alert(JSON.stringify(newDecklistData));
     this._decklistService.createNewDecklist(newDecklistData);
   }
 
@@ -64,7 +69,6 @@ export class DecklistDashboardComponent implements OnInit {
   }
 
   onCardSelected(card: MtgCard) {
-    console.log('Card selected:', card);
     this.selectedCard = card;
   }
 
@@ -75,15 +79,30 @@ export class DecklistDashboardComponent implements OnInit {
   }
 
   getDeckList() {
-    this._decklistService.getRecentDecklist()
-      .subscribe({
-        next: (decklist) => {
-          this.latestDecks = decklist
-        },
-        error: (error) => {
-          console.error('Failed to load decklists:', error);
+    if (this._router.url.includes('private')) {
+      if (this.isLoggedIn) {
+        const id = localStorage.getItem('id');
+        if (id) {
+          this._decklistService.getDecklistByUser(id)
+            .subscribe(decklist => {
+              this.showedDecks = decklist;
+            });
+        } else {
+          void this._router.navigate(['/login']);
         }
-      })
-  console.log(this.latestDecks);
+      } else {
+        void this._router.navigate(['/login']);
+      }
+    } else {
+      this._decklistService.getRecentDecklist()
+        .subscribe({
+          next: (decklist) => {
+            this.showedDecks = decklist
+          },
+          error: (error) => {
+            console.error('Failed to load decklists:', error);
+          }
+        })
+    }
   }
 }

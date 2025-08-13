@@ -49,6 +49,7 @@ export class AuthService {
       if (id) {
         localStorage.setItem('id', id);
         localStorage.setItem('username', username);
+        this.loggedUsername.set(username);
       } else {
         console.error('Can\'t find user ID from token');
       }
@@ -68,6 +69,7 @@ export class AuthService {
 
   logout(): void {
     this.loggedIn.set(false);
+    localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('id');
   }

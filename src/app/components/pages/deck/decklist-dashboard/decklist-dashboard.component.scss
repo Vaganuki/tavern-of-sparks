@@ -15,8 +15,13 @@ table {
     border-bottom: 1px solid $main-border;
   }
   & tr{
-    & td {
+    & td:not(:has(> img)) {
       padding: 1rem;
+    }
+    & td{
+      & img{
+        height: 3.5rem;
+      }
     }
   }
   & thead{
@@ -26,8 +31,6 @@ table {
     }
   }
 }
-
-
 .overlay {
   position: absolute;
   top: 50%;

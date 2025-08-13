@@ -41,7 +41,7 @@ export class LoginComponent {
 
     this._authService.login(loginData).subscribe({
       next: (res) => {
-        void this._router.navigate(['/']);
+        void this._router.navigateByUrl('/');
       }
     })
   }

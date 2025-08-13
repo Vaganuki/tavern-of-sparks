@@ -4,8 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {NewDeckListData} from '../interfaces/forms/decklist-form.interface';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
-import {Decklist, DeckResponse} from '../interfaces/core/deck_list.interface';
+import {Decklist, DeckResponse, NewCard} from '../interfaces/core/deck_list.interface';
 import {Observable} from 'rxjs';
+import {MtgCard} from '../interfaces/core/cards/card.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,6 @@ export class Deck_listService {
   private _http = inject(HttpClient);
   private _router = inject(Router);
 
-
   createNewDecklist(data: NewDeckListData) {
     const user_id = localStorage.getItem('id');
     if (user_id) {
@@ -26,10 +26,10 @@ export class Deck_listService {
     }
     if (data.game_format === 0) data.game_format++;
 
-    this._http.post(`${environment.apiUrl}/deck_list/create`, data)
+    this._http.post<Decklist>(`${environment.apiUrl}/deck_list/create`, data)
       .subscribe({
-        next: () => {
-          void this._router.navigateByUrl('/');
+        next: (data: Decklist) => {
+          void this._router.navigateByUrl(`/decks/${data.id}`);
         },
         error: error => {
           console.log(error);
@@ -37,12 +37,24 @@ export class Deck_listService {
       })
   }
 
+  addCardToDecklist(data : NewCard) {
+    this._http.post(`${environment.apiUrl}/deck_list/addCard`, data)
+    return this._router.navigate([`decks/${data.deck_id}`]);
+  }
+
+
   getRecentDecklist(): Observable<Decklist[]> {
     return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/recent`)
+  }
+
+  getDecklistByUser(id: string): Observable<Decklist[]> {
+    return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/by_user/${id}`)
   }
 
   getDecklistDetails(id: string): Observable<DeckResponse> {
     return this._http.get<DeckResponse>(`${environment.apiUrl}/deck_list/details/${id}`)
   }
+
+
 
 }

@@ -1,7 +1,6 @@
 export interface Decklist {
   id: number;
   name: string;
-  // user_id: number;
   main_card_id: string | null;
   created_at: Date;
   last_updated: Date;
@@ -11,6 +10,7 @@ export interface Decklist {
   game_format: {
     name: string;
   }
+  deck: DeckListCardLight[];
 }
 
 export interface GameFormat {
@@ -36,4 +36,32 @@ export interface DeckCard {
 export interface DeckResponse {
   decklist: Decklist[];
   cards: DeckCard[];
+}
+
+export interface ImageUris {
+
+}
+
+export interface DeckListCardLight {
+  id: number;
+  card: {
+    name: string;
+    oracle_id: string;
+  },
+  printing: {
+    image_uris: {
+      png: string;
+      large: string;
+      small: string;
+      normal: string;
+      art_crop: string;
+      border_crop: string;
+    };
+  }
+}
+
+export interface NewCard {
+  deck_id: number;
+  user_id: number;
+  card_id: string;
 }

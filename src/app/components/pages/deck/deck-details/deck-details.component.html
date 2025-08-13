@@ -1,6 +1,6 @@
+<app-card-selector (cardSelected)="onCardSelected($event)"></app-card-selector>
 <div style="display: flex; flex-flow: column; justify-content: space-between; height: 80vh;" class="container">
   <div>
-
     @for (group of groupedCards(); track group.type) {
       <div>
         <h3>{{group.type}} ({{group.count}})</h3>
@@ -9,8 +9,7 @@
         }
       </div>
     }
-
   </div>
 <!--  <div>{{groupedCards() | json }}</div>-->
-<!--  <div>{{ deckList() | json }}</div>-->
+  <div>{{ deckList() | json }}</div>
 </div>

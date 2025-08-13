@@ -1,9 +1,9 @@
 <div class="menu">
 
   <h2>Explore Decks</h2>
-  <button>All Decks</button>
+  <button [routerLink]="['/decks/public']">All Decks</button>
   @if (isLoggedIn) {
-    <button>My Decks</button>
+    <button [routerLink]="['/decks/private']">My Decks</button>
   }
   @if (isLoggedIn) {
     <div class="newDeckButton" (click)="openCreationForm()">
@@ -53,10 +53,10 @@
     }
   }
 </div>
-
 <table>
   <thead>
   <tr>
+    <th></th>
     <th>Name</th>
     <th>Format</th>
     <th>Creator</th>
@@ -64,8 +64,13 @@
   </tr>
   </thead>
   <tbody>
-    @for (deck of latestDecks; track deck.id) {
+    @for (deck of showedDecks; track deck.id) {
       <tr [routerLink]="['/decks/' + deck.id]">
+        <td>
+          @if (deck.deck[0].printing) {
+            <img [src]="deck.deck[0].printing.image_uris.art_crop" [alt]="deck.deck[0].card.name">
+          }
+        </td>
         <td>{{ deck.name }}</td>
         <td>{{ deck.game_format.name }}</td>
         <td>{{ deck.user.username }}</td>
