@@ -2,6 +2,8 @@
 
 .profileContainer {
   padding: 2.5rem 3rem;
+  display: flex;
+  gap: 1rem;
 
   & .leftCard {
     width: fit-content;
@@ -62,6 +64,48 @@
     & .generalInfos {
       display: flex;
       gap: .5rem;
+    }
+  }
+
+  & .right-container {
+    //width: 100%;
+    & .decklistsContainer {
+      background-color: $dark-background;
+      border: 2px solid $main-border;
+      padding: .5rem 1rem;
+
+      & .decklistsTitle {
+        font-size: 1.25rem;
+        color: white;
+        border-bottom: 1px solid $main-border;
+      }
+
+      & table {
+        border-collapse: collapse;
+        text-align: center;
+
+        & tr:not(:last-child) {
+          border-bottom: 1px solid $main-border;
+        }
+        & tbody {
+          &>tr{
+            &:hover{
+              background-color: $color-highlight;
+            }
+          }
+        }
+        & tr {
+          & td {
+            padding: .5rem 1rem;
+          }
+        }
+        & thead{
+          border-bottom: 2px solid $main-border;
+          & th{
+            padding: .5rem 1rem;
+          }
+        }
+      }
     }
   }
 }
