@@ -104,4 +104,16 @@ export class DecklistDashboardComponent implements OnInit {
         })
     }
   }
+
+  getMainCardPrinting(deck: Decklist) {
+    if(!deck.main_card_id) return null;
+    const mainCard = deck.deck.find(card => card.card.oracle_id === deck.main_card_id);
+    return mainCard?.printing || null;
+  }
+
+  getMainCardName(deck: Decklist):string {
+    if(!deck.main_card_id) return '';
+    const mainCard = deck.deck.find(card => card.card.oracle_id === deck.main_card_id);
+    return mainCard?.card.name || '';
+  }
 }

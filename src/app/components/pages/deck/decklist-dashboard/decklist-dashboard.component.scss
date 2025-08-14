@@ -2,9 +2,72 @@
 @import '../../../../../styles.scss';
 
 .menu{
-  border-bottom: 2px solid $main-border;
+  //border-bottom: 2px solid $main-border;
 }
+.deckListsContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
 
+  & .deckList{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: .5rem;
+
+    & .deckCard{
+      position: relative;
+      //background-color: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 .25rem .5rem 0 rgba(0,0,0,0.6);
+      cursor: pointer;
+      transition: box-shadow .2s ease;
+
+      &:hover{
+        box-shadow: 0 0 .5rem 0 color.adjust($color-highlight, $lightness: 20), inset 0 0 0 .25rem color.adjust($color-highlight, $lightness: 5);
+      }
+
+      & img{
+        display: block;
+        position: relative;
+        z-index: -1;
+        width: 100%;
+        height: 11.25rem;
+        object-fit: cover;
+        filter: brightness(.6);
+      }
+
+      & .deckInfo{
+        position: absolute;
+        top: 8.25rem;
+        left: 8%;
+        right: 8%;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      }
+       & .deckFormat{
+         font-size: .85rem;
+         color: #aaa;
+       }
+    }
+    & .deckFooter{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 .25rem;
+      font-size: .8rem;
+      & a{
+        color: white;
+        text-decoration: none;
+        font-size: .75rem;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
 table {
   border-collapse: collapse;
   text-align: center;

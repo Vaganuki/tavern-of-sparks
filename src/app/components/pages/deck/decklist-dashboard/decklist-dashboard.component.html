@@ -53,29 +53,59 @@
     }
   }
 </div>
-<table>
-  <thead>
-  <tr>
-    <th></th>
-    <th>Name</th>
-    <th>Format</th>
-    <th>Creator</th>
-    <th>Last update</th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (deck of showedDecks; track deck.id) {
-      <tr [routerLink]="['/decks/' + deck.id]">
-        <td>
-          @if (deck.deck[0].printing) {
-            <img [src]="deck.deck[0].printing.image_uris.art_crop" [alt]="deck.deck[0].card.name">
-          }
-        </td>
-        <td>{{ deck.name }}</td>
-        <td>{{ deck.game_format.name }}</td>
-        <td>{{ deck.user.username }}</td>
-        <td>{{ deck.last_updated | relativeTime }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
+
+<div class="deckListsContainer">
+  @for (deck of showedDecks; track deck.id) {
+    <div class="deckList">
+      <div class="deckCard" [routerLink]="['/decks/' + deck.id]" >
+        @if (getMainCardPrinting(deck)) {
+          <img [src]="getMainCardPrinting(deck)!.image_uris.art_crop" [alt]="getMainCardName(deck)">
+        }
+        @else if (deck.deck[0]) {
+          <img [src]="deck.deck[0].printing.image_uris.art_crop" [alt]="deck.deck[0].card.name">
+        }
+        @else {
+          <img src="default_deck_banner_placeHolder.png" alt="No banner">
+        }
+        <div class="deckInfo">
+          <div class="deckName">{{ deck.name }}</div>
+          <div class="deckFormat">{{ deck.game_format.name }}</div>
+        </div>
+      </div>
+      <div class="deckFooter">
+        <a [routerLink]="['/users/'+ deck.user.username]">{{ deck.user.username }}</a>
+        <span>{{ deck.last_updated | relativeTime }}</span>
+      </div>
+    </div>
+
+  }
+</div>
+
+<!--<table>-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th></th>-->
+<!--    <th>Name</th>-->
+<!--    <th>Format</th>-->
+<!--    <th>Creator</th>-->
+<!--    <th>Last update</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    @for (deck of showedDecks; track deck.id) {-->
+<!--      <tr [routerLink]="['/decks/' + deck.id]">-->
+<!--        <td>-->
+<!--          @if (getMainCardPrinting(deck)) {-->
+<!--            <img [src]="getMainCardPrinting(deck)!.image_uris.art_crop" [alt]="getMainCardName(deck)">-->
+<!--          } @else if (deck.deck[0].printing) {-->
+<!--            <img [src]="deck.deck[0].printing.image_uris.art_crop" [alt]="deck.deck[0].card.name">-->
+<!--          }-->
+<!--        </td>-->
+<!--        <td>{{ deck.name }}</td>-->
+<!--        <td>{{ deck.game_format.name }}</td>-->
+<!--        <td>{{ deck.user.username }}</td>-->
+<!--        <td>{{ deck.last_updated | relativeTime }}</td>-->
+<!--      </tr>-->
+<!--    }-->
+<!--  </tbody>-->
+<!--</table>-->
