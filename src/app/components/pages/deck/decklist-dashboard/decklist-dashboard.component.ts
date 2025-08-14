@@ -48,7 +48,6 @@ export class DecklistDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getDeckList();
-    console.log(this._router.url);
   }
 
   onSubmit() {

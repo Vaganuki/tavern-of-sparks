@@ -35,13 +35,13 @@
               <input type="text" formControlName="name">
             </div>
             <div class="formGroup">
-              <label for="main_card_id">Main Card (optional)</label>
-              <app-card-selector (cardSelected)="onCardSelected($event)"></app-card-selector>
-            </div>
-            <div class="formGroup">
               <label for="game_format">Format:</label>
               <!--            <input type="text" formControlName="game_format">-->
               <app-game-format-selector (formatSelected)="onGameFormatSelected($event)"></app-game-format-selector>
+            </div>
+            <div class="formGroup">
+              <label for="main_card_id">Main Card (optional)</label>
+              <app-card-selector (cardSelected)="onCardSelected($event)"></app-card-selector>
             </div>
             <div class="formAction">
               <button type="button" (click)="cancelCreation()">Cancel</button>

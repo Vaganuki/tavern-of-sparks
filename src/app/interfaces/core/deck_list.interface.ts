@@ -13,6 +13,21 @@ export interface Decklist {
   deck: DeckListCardLight[];
 }
 
+export interface DeckListDetails {
+  id: number;
+  name: string;
+  main_card_id: string | null;
+  created_at: Date;
+  last_updated: Date;
+  user: {
+    username: string;
+  };
+  game_format: {
+    name: string;
+  }
+  cards: DeckCard[];
+}
+
 export interface GameFormat {
   name: string;
   id: number;

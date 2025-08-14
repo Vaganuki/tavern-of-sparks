@@ -38,13 +38,35 @@
     </div>
     <div class="generalInfos">
 
-      <p><a href="">2</a> friends</p>
+<!--      <p><a href="">2</a> friends</p>-->
       <div class="joinedAt">
         Joined {{user()?.createdAt | date:'MMM yyyy'}}
       </div>
     </div>
   </div>
-
-  <!--  <pre>{{user() | json}}</pre>-->
-  <!--  <pre>{{userProfile() | json}}</pre>-->
+  <div class="right-container">
+    <div class="decklistsContainer">
+      <h5>{{isOwnProfile()? 'Your' : 'Their'}} latest deck{{showedDecks.length > 1 ? 's': ''}}</h5>
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Format</th>
+          <th>Last update</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (deck of showedDecks; track deck.id) {
+            <tr [routerLink]="['/decks/' + deck.id]">
+              <td>{{ deck.name }}</td>
+              <td>{{ deck.game_format.name }}</td>
+              <td>{{ deck.last_updated | relativeTime }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+<!--    <pre>{{user() | json}}</pre>-->
+<!--    <pre>{{userProfile() | json}}</pre>-->
 </div>

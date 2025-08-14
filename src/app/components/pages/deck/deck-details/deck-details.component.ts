@@ -1,16 +1,15 @@
-import {Component, computed, inject} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {of, switchMap} from 'rxjs';
 import {Deck_listService} from '../../../../services/deck_list.service';
-import {JsonPipe, KeyValuePipe} from '@angular/common';
-import {DeckCard, NewCard} from '../../../../interfaces/core/deck_list.interface';
+import {JsonPipe,} from '@angular/common';
+import {DeckCard, DeckListDetails, DeckResponse, NewCard} from '../../../../interfaces/core/deck_list.interface';
 import {CardSelectorComponent} from '../../../core/assets/card-selector/card-selector.component';
 import {MtgCard} from '../../../../interfaces/core/cards/card.interface';
 
 @Component({
   selector: 'app-deck-details',
-  imports: [JsonPipe, KeyValuePipe, CardSelectorComponent],
+  imports: [JsonPipe, CardSelectorComponent],
   templateUrl: './deck-details.component.html',
   styleUrl: './deck-details.component.scss'
 })
@@ -19,11 +18,42 @@ export class DeckDetailsComponent {
   private _decklistService = inject(Deck_listService);
   private _paramMap = toSignal(this._activatedRoute.paramMap);
 
+  isOwnDeck = false;
+
   deckid = computed(() => this._paramMap()?.get('deckid'));
 
-  groupedCards = computed(() => {
-    const cards = this.deckList()?.cards;
-    if (!cards) return [];
+  private _deckListSignal = signal<DeckListDetails>({
+    id: 0,
+    name: 'PlaceHolder',
+    main_card_id: null,
+    created_at: new Date(),
+    last_updated: new Date(),
+    user: {
+      username: 'Loading...',
+    },
+    game_format: {
+      name: 'Loading',
+    },
+    cards: [],
+  });
+  deckList = this._deckListSignal.asReadonly();
+
+  private _groupedCardSignal = signal<any[]>([]);
+  groupedCards = this._groupedCardSignal.asReadonly();
+
+
+  constructor() {
+    this._activatedRoute.paramMap.subscribe(params => {
+      const deckid = params.get('deckid');
+      if (deckid) {
+        this.loadDeckList(deckid);
+      }
+    });
+  }
+
+  private updateGroupedCards(deckListData: DeckListDetails) {
+
+    const cards = deckListData.cards;
     const grouped: Record<string, Map<string, { card: DeckCard, count: number }>> = {};
 
     cards?.forEach((c) => {
@@ -38,24 +68,21 @@ export class DeckDetailsComponent {
         grouped[type].set(cardID, {card: c, count: 1});
       }
     })
-    return Object.entries(grouped).map(([key, value]) => ({
+    const result = Object.entries(grouped).map(([key, value]) => ({
       type: key,
       cards: Array.from(value.values()),
       count: Array.from(value.values()).reduce((total, cardData) => total + cardData.count, 0),
     }));
-  });
+    this._groupedCardSignal.set(result);
+  }
 
-  deckList = toSignal(
-    this._activatedRoute.paramMap.pipe(
-      switchMap(params => {
-        const deckid = params.get('deckid');
-        if (deckid) {
-          return this._decklistService.getDecklistDetails(deckid);
-        }
-        return of(null);
-      })
-    )
-  );
+  private loadDeckList(deckid: string) {
+    this._decklistService.getDecklistDetails(deckid).subscribe(decklist => {
+      this._deckListSignal.set(decklist);
+      this.isOwnDeck = this.deckList().user.username === localStorage.getItem('username');
+      this.updateGroupedCards(decklist);
+    });
+  }
 
   extractMainType(typeline: string): string {
     if (typeline.includes('Planeswalker')) return 'Planeswalker';
@@ -71,17 +98,30 @@ export class DeckDetailsComponent {
   onCardSelected(card: MtgCard) {
 
     const user_id = localStorage.getItem('id');
+    const deckInfo = this.deckList();
     if (user_id) {
       const data: NewCard = {
         user_id: +user_id,
         card_id: card.oracle_id,
-        deck_id: this.deckList()?.decklist[0].id ?? 0,
+        deck_id: deckInfo.id ?? 0,
       };
-      console.log(data);
-      void this._decklistService.addCardToDecklist(data);
+      this._decklistService.addCardToDecklist(data).subscribe({
+        next: (res) => {
+          this.refreshDeckList();
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
     } else {
       return
     }
   }
 
+  private refreshDeckList() {
+    const deckid = this.deckid();
+    if (deckid) {
+      this.loadDeckList(deckid);
+    }
+  }
 }

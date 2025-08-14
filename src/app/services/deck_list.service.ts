@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {NewDeckListData} from '../interfaces/forms/decklist-form.interface';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
-import {Decklist, DeckResponse, NewCard} from '../interfaces/core/deck_list.interface';
+import {Decklist, DeckListDetails, DeckResponse, NewCard} from '../interfaces/core/deck_list.interface';
 import {Observable} from 'rxjs';
 import {MtgCard} from '../interfaces/core/cards/card.interface';
 
@@ -38,8 +38,9 @@ export class Deck_listService {
   }
 
   addCardToDecklist(data : NewCard) {
-    this._http.post(`${environment.apiUrl}/deck_list/addCard`, data)
-    return this._router.navigate([`decks/${data.deck_id}`]);
+    // console.log(data);
+    return this._http.post<NewCard>(`${environment.apiUrl}/deck_list/addCard`, data)
+    // return this._router.navigate([`decks/${data.deck_id}`]);
   }
 
 
@@ -51,8 +52,8 @@ export class Deck_listService {
     return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/by_user/${id}`)
   }
 
-  getDecklistDetails(id: string): Observable<DeckResponse> {
-    return this._http.get<DeckResponse>(`${environment.apiUrl}/deck_list/details/${id}`)
+  getDecklistDetails(id: string): Observable<DeckListDetails> {
+    return this._http.get<DeckListDetails>(`${environment.apiUrl}/deck_list/details/${id}`)
   }
 
 
