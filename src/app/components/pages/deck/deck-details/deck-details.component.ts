@@ -1,15 +1,22 @@
 import {Component, computed, inject, signal} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {Deck_listService} from '../../../../services/deck_list.service';
-import {JsonPipe,} from '@angular/common';
-import {DeckCard, DeckListDetails, DeckResponse, NewCard} from '../../../../interfaces/core/deck_list.interface';
+import {DatePipe, JsonPipe,} from '@angular/common';
+import {
+  DeckCard,
+  Decklist,
+  DeckListDetails,
+  DeckResponse,
+  NewCard
+} from '../../../../interfaces/core/deck_list.interface';
 import {CardSelectorComponent} from '../../../core/assets/card-selector/card-selector.component';
 import {MtgCard} from '../../../../interfaces/core/cards/card.interface';
+import {RelativeTimePipe} from '../../../../pipes/relativeTime.pipe';
 
 @Component({
   selector: 'app-deck-details',
-  imports: [JsonPipe, CardSelectorComponent],
+  imports: [JsonPipe, CardSelectorComponent, RelativeTimePipe, DatePipe, RouterLink],
   templateUrl: './deck-details.component.html',
   styleUrl: './deck-details.component.scss'
 })
@@ -123,5 +130,17 @@ export class DeckDetailsComponent {
     if (deckid) {
       this.loadDeckList(deckid);
     }
+  }
+
+  getMainCardPrinting(deck : DeckListDetails) {
+    if (!deck.main_card_id) return null;
+    const mainCard = deck.cards.find(card => card.card.oracle_id === deck.main_card_id);
+    return mainCard?.printing.image_uris.art_crop || null;
+  }
+
+  getMainCardName(deck: DeckListDetails):string {
+    if(!deck.main_card_id) return '';
+    const mainCard = deck.cards.find(card => card.card.oracle_id === deck.main_card_id);
+    return mainCard?.card.name || '';
   }
 }

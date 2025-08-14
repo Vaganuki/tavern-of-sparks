@@ -1,0 +1,108 @@
+@import '../../../../../styles.scss';
+
+.banner {
+  position: relative;
+  height: 30vh;
+  border-radius: 8px;
+  overflow: hidden;
+  color: white;
+  padding: 1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        $dark-background 0%,
+        $dark-background 25%,
+        rgba(0, 0, 0, 0.1) 100%
+    );
+    z-index: 0;
+  }
+
+
+  & .backgroundBanner {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.6) saturate(2) blur(2px);
+    }
+  }
+
+  & .content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1.2rem;
+
+    & .user {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      & .avatar {
+        width: 3rem;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        & img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          cursor: pointer;
+
+        }
+      }
+      & span{
+        font-weight: 600;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+        cursor: pointer;
+
+        font-size: 1.25rem;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+
+    & .deckTitle{
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .info{
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+
+      & .format {
+        background-color: rgba(255, 255, 255, .15);
+        padding: .2rem .6rem;
+        border-radius: 4px;
+        font-size: .8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        backdrop-filter: blur(4px);
+      }
+      & .lastUptade, .creation {
+        position: relative;
+        z-index: 1;
+        font-size: .75rem;
+        opacity: 0.8;
+      }
+    }
+  }
+}

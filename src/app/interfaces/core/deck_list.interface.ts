@@ -46,6 +46,16 @@ export interface DeckCard {
     power?: string;
     toughness?: string;
   };
+  printing: {
+    image_uris: {
+      png: string;
+      large: string;
+      small: string;
+      normal: string;
+      art_crop: string;
+      border_crop: string;
+    };
+  }
 }
 
 export interface DeckResponse {

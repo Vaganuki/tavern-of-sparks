@@ -1,14 +1,34 @@
 <div class="banner">
-  <div class="user">
-    <img src="" alt="">
-    <span></span>
+  <div class="backgroundBanner">
+    @if (deckList().main_card_id) {
+      <img [src]="getMainCardPrinting(deckList())" [alt]="getMainCardName(deckList())">
+    } @else if (deckList().cards[0]) {
+      <img [src]="deckList().cards[0].printing.image_uris.art_crop" [alt]="deckList().cards[0].card.name">
+    } @else {
+      <img src="default_deck_banner_placeHolder.png" alt="No banner">
+    }
+  </div>
+  <div class="content">
+    <div class="user">
+      <div class="avatar">
+        <img [routerLink]="['/users/'+ deckList().user.username]" src="default_avatar_placeHolder.png"
+             alt="TO BE UPDATED">
+      </div>
+      <span [routerLink]="['/users/'+ deckList().user.username]">{{ deckList().user.username }}</span>
+    </div>
+    <div class="deckTitle">{{ deckList().name }}</div>
+    <div class="info">
+      <div class="format">{{ deckList().game_format.name }}</div>
+      <div class="lastUptade">Last updated {{ deckList().last_updated | relativeTime }}</div>
+      <div class="creation">{{ deckList().created_at | date:'dd MMM yy' }}</div>
+    </div>
   </div>
 </div>
 
 @if (isOwnDeck) {
   <app-card-selector (cardSelected)="onCardSelected($event)"></app-card-selector>
 }
-<div style="display: flex; flex-flow: column; justify-content: space-between; height: 80vh;" class="container">
+<div class="container">
   <div>
     @for (group of groupedCards(); track group.type) {
       <div>
@@ -19,6 +39,6 @@
       </div>
     }
   </div>
-  <!--  <div>{{ deckList() | json }}</div>-->
+  <!--  <pre>{{ deckList() | json }}</pre>-->
   <!--  <div>{{groupedCards() | json }}</div>-->
 </div>
