@@ -4,6 +4,7 @@ export interface MtgCard {
   type_line: string;
   oracle_text?: string;
   cmc: number;
+  mana_cost: string;
   power?: string;
   toughness?: string;
 }

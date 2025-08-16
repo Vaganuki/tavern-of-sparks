@@ -29,6 +29,35 @@ export class DeckDetailsComponent {
 
   deckid = computed(() => this._paramMap()?.get('deckid'));
 
+  isDetailsShown = signal<boolean>(false)
+  hoverCardSrc = signal<string>('');
+  hoverCardName = signal<string>('');
+  cardDetails = signal<DeckCard>({
+    is_commander: false,
+    is_sideboard: false,
+    card:{
+      oracle_id:'',
+      name:'Loading...',
+      type_line:'Loading...',
+      oracle_text:'Loading...',
+      cmc:'Loading...',
+      mana_cost:'Loading...',
+      power:'Loading...',
+      toughness:'Loading...'
+    },
+    printing:{
+      image_uris:{
+        png:'Loading...',
+        normal:'Loading...',
+        art_crop:'Loading...',
+        border_crop:'Loading...',
+        large:'Loading...',
+        small:'Loading...',
+      }
+    }
+  });
+
+
   private _deckListSignal = signal<DeckListDetails>({
     id: 0,
     name: 'PlaceHolder',
@@ -88,6 +117,8 @@ export class DeckDetailsComponent {
       this._deckListSignal.set(decklist);
       this.isOwnDeck = this.deckList().user.username === localStorage.getItem('username');
       this.updateGroupedCards(decklist);
+      this.getHoverPrinting(decklist.cards[0]);
+      this.getHoverName(decklist.cards[0]);
     });
   }
 
@@ -142,5 +173,19 @@ export class DeckDetailsComponent {
     if(!deck.main_card_id) return '';
     const mainCard = deck.cards.find(card => card.card.oracle_id === deck.main_card_id);
     return mainCard?.card.name || '';
+  }
+
+  getHoverPrinting(card: DeckCard) {
+    this.hoverCardSrc.set(card.printing.image_uris.normal);
+  }
+  getHoverName(card: DeckCard) {
+    this.hoverCardName.set(card.card.name);
+  }
+  getCardDetails(card: DeckCard) {
+    this.isDetailsShown.set(true);
+    this.cardDetails.set(card);
+  }
+  closeDetails(){
+    this.isDetailsShown.set(false);
   }
 }

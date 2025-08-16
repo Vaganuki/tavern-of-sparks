@@ -43,8 +43,10 @@ export interface DeckCard {
     type_line: string;
     oracle_text: string;
     cmc: string;
+    mana_cost: string;
     power?: string;
     toughness?: string;
+    loyalty?: string;
   };
   printing: {
     image_uris: {
