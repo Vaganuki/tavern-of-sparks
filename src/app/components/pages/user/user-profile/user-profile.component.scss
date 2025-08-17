@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import '../../../../../styles.scss';
 
 .profileContainer {
@@ -22,6 +23,8 @@
 
     & .cardTitleContainer {
       display: flex;
+      //align-items: center;
+      gap: 1rem;
 
       & h3 {
         font-size: 1.75rem;
@@ -87,25 +90,115 @@
         & tr:not(:last-child) {
           border-bottom: 1px solid $main-border;
         }
+
         & tbody {
-          &>tr{
-            &:hover{
+          & > tr {
+            &:hover {
               background-color: $color-highlight;
             }
           }
         }
+
         & tr {
           & td {
             padding: .5rem 1rem;
           }
         }
-        & thead{
+
+        & thead {
           border-bottom: 2px solid $main-border;
-          & th{
+
+          & th {
             padding: .5rem 1rem;
           }
         }
       }
     }
+  }
+}
+
+
+.followBtn, .editBtn {
+  padding: .5rem 1rem;
+  border: 2px solid $main-border;
+  border-radius: .375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .15s ease-in-out;
+  font-size: .875rem;
+  margin-left: 5rem;
+
+  &:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba($main-border, 0.5);
+  }
+
+  background-color: lighten($main-border, 10%);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: $color-background;
+    color: $color-text-primary;
+  }
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  &.loading {
+    pointer-events: none;
+  }
+}
+
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.followStats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: .5rem;
+
+  .followersCount,
+  .followingCount {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    strong {
+      color: $color-accent;
+      margin-right: .25rem;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      color: $color-highlight;
+      & strong{
+        color: color.adjust($color-highlight, $lightness: 15%, $saturation: 10%);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.generalInfos {
+  .joinedAt {
+    color: $color-muted;
   }
 }

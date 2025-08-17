@@ -9,6 +9,7 @@ import {UserEditComponent} from './components/pages/user/user-edit/user-edit.com
 import {ProfileEditGuard} from './guard/profile-edit.guard';
 import {DecklistDashboardComponent} from './components/pages/deck/decklist-dashboard/decklist-dashboard.component';
 import {DeckDetailsComponent} from './components/pages/deck/deck-details/deck-details.component';
+import {UserConnectionsComponent} from './components/pages/user/user-connections/user-connections.component';
 
 
 export const routes: Routes = [
@@ -24,6 +25,14 @@ export const routes: Routes = [
         path: 'users/:username/edit',
         component: UserEditComponent,
         canActivate: [ProfileEditGuard]
+      },
+      {
+        path: 'users/:username/connections/following',
+        component: UserConnectionsComponent,
+      },
+      {
+        path: 'users/:username/connections/followers',
+        component: UserConnectionsComponent,
       },
       {
         path: 'decks/public',

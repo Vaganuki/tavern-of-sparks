@@ -7,9 +7,22 @@
     }
     <div class="cardTitleContainer">
       <h3>{{ user()?.username }}</h3>
-      @if (canEdit()) {
-        <button [routerLink]="['/users/', user()?.username,'edit']">Edit</button>
+
+      @if (isLoggedIn) {
+        @if (canEdit()) {
+          <button class="editBtn" [routerLink]="['/users/', user()?.username,'edit']">Edit</button>
+        } @else {
+          <button class="followBtn" [class.following]="isFollowing()" [class.loading]="isFollowLoading()" [disabled]="isFollowLoading()" (click)="onFollowToggle()">
+            @if (isFollowLoading()) {
+              <span class="loadingSpinner"></span>
+              {{isFollowing() ? 'Unfollowing...' : 'Following...' }}
+            } @else {
+              {{isFollowing() ? 'Unfollow' : 'Follow' }}
+            }
+          </button>
+        }
       }
+
     </div>
     <div class="personalInfos">
       @if (user()?.pronouns) {
@@ -38,8 +51,14 @@
     </div>
     <div class="generalInfos">
 
-      <!--      <p><a href="">2</a> friends</p>-->
-      <div class="joinedAt">
+      <div class="followStats">
+        <span class="followersCount" [routerLink]="['/users/'+ user()?.username + '/connections/followers']">
+          <strong>{{ followerCount() }}</strong> {{ followerCount() <= 1 ? 'follower' : 'followers' }}
+        </span>
+        <span class="followingCount" [routerLink]="['/users/'+ user()?.username + '/connections/following']">
+          <strong>{{ followingCount() }}</strong> following
+        </span>
+      </div>      <div class="joinedAt">
         Joined {{ user()?.createdAt | date:'MMM yyyy' }}
       </div>
     </div>

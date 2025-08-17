@@ -1,0 +1,30 @@
+<div class="container">
+
+  <div class="breadcrumb"><a [routerLink]="['/users/'+user()?.username]">{{ user()?.username }}</a><span></span>Connections
+  </div>
+  <h2>Connections</h2>
+  <div class="connectionsMenu">
+    <div [routerLink]="isFollowerLink ? null: ['/users/'+user()?.username+'/connections/followers']"
+         [class.activeLink]="isFollowerLink" class="followersBtn">
+      Followers ({{ followerCount() }})
+    </div>
+    <div [routerLink]="!isFollowerLink ? null: ['/users/'+user()?.username+'/connections/following']"
+         [class.activeLink]="!isFollowerLink" class="followingBtn">
+      Following ({{ followingCount() }})
+    </div>
+  </div>
+  <div class="userList">
+    <ul class="followContainer">
+      @for (user of followData; track user.id) {
+        <li>
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="[user.username+'\'s profile pic']">
+          } @else {
+            <img src="default_avatar_placeHolder.png" alt="Default avatar">
+          }
+          <a [routerLink]="['/users/' + user.username]">{{user.username}}</a>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
