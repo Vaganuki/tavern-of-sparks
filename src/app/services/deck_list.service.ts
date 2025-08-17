@@ -37,7 +37,7 @@ export class Deck_listService {
       })
   }
 
-  addCardToDecklist(data : NewCard) {
+  addCardToDecklist(data: NewCard) {
     // console.log(data);
     return this._http.post<NewCard>(`${environment.apiUrl}/deck_list/addCard`, data)
     // return this._router.navigate([`decks/${data.deck_id}`]);
@@ -56,6 +56,15 @@ export class Deck_listService {
     return this._http.get<DeckListDetails>(`${environment.apiUrl}/deck_list/details/${id}`)
   }
 
+  getUserLatestUpdatedDeck(id: string, limit: number): Observable<Decklist[]> {
+    return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/by_user/${id}?sortBy=updated&limit=${limit}`)
+  };
 
+  getUsersFollowLatestDeck(id: string, limit: number): Observable<Decklist[]> {
+    return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/by_follow/${id}?sortBy=created&limit=${limit}`)
+  }
 
+  getUsersFollowLatestUpdatedDeck(id: string, limit: number): Observable<Decklist[]> {
+    return this._http.get<Decklist[]>(`${environment.apiUrl}/deck_list/by_follow/${id}?sortBy=updated&limit=${limit}`)
+  }
 }

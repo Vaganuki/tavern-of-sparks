@@ -34,7 +34,7 @@ export class NavBarComponent {
       icon: 'house-heart-fill',
     },
     {
-      url: '/',
+      url: '/WIP',
       name: 'Events',
       icon: 'calendar-event',
     },
@@ -44,12 +44,12 @@ export class NavBarComponent {
       icon:'card-list'
     },
     {
-      url: '/',
+      url: '/WIP',
       name: 'Trades',
       icon:'arrow-repeat',
     },
     {
-      url: '/',
+      url: '/WIP',
       name: 'Forums',
       icon:'chat-square-quote-fill',
     },

@@ -10,6 +10,8 @@ import {ProfileEditGuard} from './guard/profile-edit.guard';
 import {DecklistDashboardComponent} from './components/pages/deck/decklist-dashboard/decklist-dashboard.component';
 import {DeckDetailsComponent} from './components/pages/deck/deck-details/deck-details.component';
 import {UserConnectionsComponent} from './components/pages/user/user-connections/user-connections.component';
+import {HomepageComponent} from './components/pages/homepage/homepage.component';
+import {WorkInProgressComponent} from './components/core/work-in-progress/work-in-progress.component';
 
 
 export const routes: Routes = [
@@ -46,6 +48,14 @@ export const routes: Routes = [
         path: 'decks/:deckid',
         component: DeckDetailsComponent,
       },
+      {
+        path: 'WIP',
+        component: WorkInProgressComponent
+      },
+      {
+        path:'',
+        component: HomepageComponent
+      }
     ]
   },
   {path: 'login', component: LoginComponent},

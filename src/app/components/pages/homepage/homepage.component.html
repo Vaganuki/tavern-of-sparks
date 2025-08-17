@@ -1,0 +1,82 @@
+<!--<p>homepage works!</p>-->
+<div class="welcomeScreen">
+  <h1 class="title">Tavern of Sparks</h1>
+</div>
+@if (isLoggedIn) {
+  <div class="loggedContainer">
+    <div class="personalDecks">
+      <div class="decklistsTitle">Pick up where you left off</div>
+      <div class="decklistsContainer">
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Format</th>
+            <th>Last update</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (deck of userLatestUpdatedDeck; track deck.id) {
+              <tr [routerLink]="['/decks/' + deck.id]">
+                <td>{{ deck.name }}</td>
+                <td>{{ deck.game_format.name }}</td>
+                <td>{{ deck.last_updated | relativeTime }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="latestDeckFollow">
+      <div class="decklistsTitle">Latest Decks from people you follow</div>
+      <div class="decklistsContainer">
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Format</th>
+            <th>Uploaded</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (deck of userLatestUpdatedDeck; track deck.id) {
+              <tr [routerLink]="['/decks/' + deck.id]">
+                <td>{{ deck.name }}</td>
+                <td>{{ deck.user.username }}</td>
+                <td>{{ deck.game_format.name }}</td>
+                <td>{{ deck.created_at | relativeTime }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="latestDeckUpdate">
+      <div class="decklistsTitle">Latest updated decks from people you follow</div>
+      <div class="decklistsContainer">
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Format</th>
+            <th>Last update</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (deck of userLatestUpdatedDeck; track deck.id) {
+              <tr [routerLink]="['/decks/' + deck.id]">
+                <td>{{ deck.name }}</td>
+                <td>{{ deck.user.username }}</td>
+                <td>{{ deck.game_format.name }}</td>
+                <td>{{ deck.last_updated | relativeTime }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+<!--<pre>{{ userLatestUpdatedDeck | json }}</pre>-->

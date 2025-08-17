@@ -1,0 +1,86 @@
+@use "sass:color";
+@import "../../../../styles.scss";
+
+.title {
+  display: block;
+  width: 50%;
+  margin: 2rem auto;
+  text-align: center;
+  line-height: 6rem;
+  font-size: 6rem;
+  color: white;
+  background-image: none;
+}
+
+.welcomeScreen {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  //filter: blur(10px);
+  box-shadow: inset 0 0 500rem rgba(0, 0, 0, 0.75), 0 0 2.5rem $main-border;
+  border-bottom: 2px solid $main-border;
+  margin-bottom: 3rem;
+
+  &:before{
+    content: "";
+    background-image: url(https://cards.scryfall.io/art_crop/front/d/5/d573ef03-4730-45aa-93dd-e45ac1dbaf4a.jpg?1559591645);
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+  }
+}
+
+.loggedContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+
+  .decklistsTitle {
+    font-size: 1.25rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .decklistsContainer {
+    background-color: $dark-background;
+    border: 2px solid $main-border;
+    padding: .5rem 1rem;
+    width: 27.5vw;
+
+    & table {
+      border-collapse: collapse;
+      text-align: center;
+      width: 100%;
+
+      & tr:not(:last-child) {
+        border-bottom: 1px solid $main-border;
+      }
+
+      & tbody {
+        & > tr {
+          &:hover {
+            background-color: color.adjust($main-border, $lightness: -5%);
+          }
+        }
+      }
+
+      & tr {
+        & td {
+          padding: .5rem 1rem;
+        }
+      }
+
+      & thead {
+        border-bottom: 2px solid $main-border;
+
+        & th {
+          padding: .5rem 1rem;
+        }
+      }
+    }
+  }
+}
